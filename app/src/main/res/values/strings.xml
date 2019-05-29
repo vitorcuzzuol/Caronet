@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Caronet</string>
+    <string name="register">REGISTER</string>
+    <string name="login">LOGIN</string>
 </resources>

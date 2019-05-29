@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "487621109667",
+    "firebase_url": "https://caronet-e528f.firebaseio.com",
+    "project_id": "caronet-e528f",
+    "storage_bucket": "caronet-e528f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487621109667:android:cc38341c09c79c9f",
+        "android_client_info": {
+          "package_name": "br.uff.caronet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487621109667-icf6u3ekjn827bksaq7e25pffg66ar79.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.uff.caronet",
+            "certificate_hash": "75a27969ea79fb38067e910fb8dc680dfa64c344"
+          }
+        },
+        {
+          "client_id": "487621109667-6uoahss5g1jla9ibsv12a4u4hugr10ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTqHVFguyK5IfHQLqnJRodHIubz2GND-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487621109667-6uoahss5g1jla9ibsv12a4u4hugr10ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
