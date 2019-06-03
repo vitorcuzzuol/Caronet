@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Caronet</string>
-    <string name="register">REGISTER</string>
+    <string name="register">REGISTRAR</string>
     <string name="login">LOGIN</string>
     <string name="title_activity_maps">Map</string>
     <string name="email">email</string>
-    <string name="name">name</string>
-    <string name="driver">Driver</string>
+    <string name="name">nome</string>
+    <string name="driver">Motorista</string>
     <string name="password">Password</string>
-    <string name="cancel">CANCEL</string>
-    <string name="registered">Registered</string>
+    <string name="cancel">CANCELAR</string>
+    <string name="registered">registrado</string>
 </resources>
