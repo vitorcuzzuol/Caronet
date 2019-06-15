@@ -2,6 +2,7 @@ package br.uff.caronet.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import br.uff.caronet.R;
-import br.uff.caronet.models.TestUser;
+import br.uff.caronet.models.TestRide;
 
-public class RidesAdapter extends FirestoreRecyclerAdapter <TestUser, RidesAdapter.ViewHolderRides>{
+public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapter.ViewHolderRides>{
 
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -21,15 +22,33 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestUser, RidesAdapt
      *
      * @param options
      */
-    public RidesAdapter(@NonNull FirestoreRecyclerOptions<TestUser> options) {
+    public RidesAdapter(@NonNull FirestoreRecyclerOptions<TestRide> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolderRides holder, int position, @NonNull TestUser model) {
+    protected void onBindViewHolder(@NonNull ViewHolderRides holder, int position, @NonNull final TestRide model) {
 
-        holder.tvName.setText(model.getName());
-        holder.tvEmail.setText(model.getEmail());
+        holder.tvName.setText(model.getDriver().getName());
+        holder.tvDate.setText(model.getDeparture().toString());
+
+        if (model.isGoingToUff()){
+            holder.tvIsGoingToUff.setText(R.string.gotouff);
+        }
+        else {
+            holder.tvIsGoingToUff.setText(R.string.leavingUff);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.v("Clicked on: ","Driver Id: "+model.getDriver().getDriverId()+
+                        " - Name: "+model.getDriver().getName());
+            }
+        });
+
+
     }
 
     @NonNull
@@ -45,14 +64,15 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestUser, RidesAdapt
     class ViewHolderRides extends RecyclerView.ViewHolder {
 
         TextView tvName;
-        TextView tvEmail;
-
+        TextView tvIsGoingToUff;
+        TextView tvDate;
 
         public ViewHolderRides(@NonNull View itemView) {
             super(itemView);
 
             tvName = itemView.findViewById(R.id.tvName);
-            tvEmail = itemView.findViewById(R.id.tvEmail);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            tvIsGoingToUff = itemView.findViewById(R.id.tvIsGoingToUff);
 
         }
     }

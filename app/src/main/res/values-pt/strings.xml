@@ -9,4 +9,8 @@
     <string name="password">Password</string>
     <string name="cancel">CANCELAR</string>
     <string name="registered">registrado</string>
+    <string name="gotouff">Indo pra UFF</string>
+    <string name="leavingUff">Saindo da UFF</string>
+    <string name="edit_profile">Editar perfil</string>
+    <string name="logout">Logout</string>
 </resources>

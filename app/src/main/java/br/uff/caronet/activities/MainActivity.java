@@ -13,55 +13,42 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import br.uff.caronet.service.Dao;
 import br.uff.caronet.R;
-import br.uff.caronet.models.Campi;
 import br.uff.caronet.models.TestUser;
-import br.uff.caronet.models.User;
+
 
 public class MainActivity extends AppCompatActivity {
 
     Button btReg, btLog;
-
-    FirebaseAuth auth;
-    FirebaseFirestore db;
+    Dao dao;
     CollectionReference users;
-
     RelativeLayout relativeLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dao = Dao.get();
+
         btReg = findViewById(R.id.btReg);
         btLog = findViewById(R.id.btLog);
 
-        auth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        users = db.collection("Users");
-
+        users = dao.getDb().collection("Users");
 
         //if user is already logged then get his attributes from db and store on a new User object
-        if (auth.getCurrentUser() != null){
-            Log.v("user auth id: ", auth.getUid());
+        if (dao.getUser() != null){
+            Log.v("user auth id: ", dao.getUId());
 
-            DocumentReference userRef = users.document(auth.getUid());
+            DocumentReference userRef = users.document(dao.getUId());
 
             //check if found the user from db
             userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -129,33 +116,11 @@ public class MainActivity extends AppCompatActivity {
                 relativeLayout = findViewById(R.id.root_layout);
                 //validate
 
-                auth.signInWithEmailAndPassword(etEmail.getText().toString(),etPassword.getText().toString())
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
+                //sign in
+                dao.signIn(etEmail.getText().toString(),etPassword.getText().toString());
 
-                                DocumentReference userRef = users.document(authResult.getUser().getUid());
-
-                                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()){
-                                            DocumentSnapshot userRef = task.getResult();
-
-                                            TestUser user = userRef.toObject(TestUser.class);
-                                            Log.v("User Logged name: ", user.getName());
-
-                                        }
-                                    }
-                                });
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                            }
-                        });
+                Intent intent = new Intent(MainActivity.this, RidesActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -199,44 +164,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("name: ", etName.getText().toString());
 
                 //create an user auth
-                auth.createUserWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString())
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
+                dao.regUser(etEmail.getText().toString(),
+                        etPassword.getText().toString(),
+                        etName.getText().toString(),
+                        swDriver.isChecked());
 
-                                Log.v("auth created!: ", auth.getUid());
-
-                                //creating user Object and setting values typed on screen to store on db
-                                TestUser user = new TestUser(etName.getText().toString(),
-                                        etEmail.getText().toString(),
-                                        swDriver.isChecked());
-
-                                //adding user on firestore db with the same ID as authenticator
-                                users.document(auth.getUid()).set(user)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("DocumentSnapshot written with ID: ",
-                                                        users.document(auth.getUid()).getId());
-
-                                                Toast.makeText(getApplicationContext(), R.string.registered,
-                                                        Toast.LENGTH_LONG).show();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("Error adding document", e);
-                                            }
-                                        });
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("error auth", e);
-                            }
-                        });
             }
         });
 

@@ -14,14 +14,25 @@
 
         <TextView
             android:id="@+id/tvName"
+            android:text="Nome Alguma Coisa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tvIsGoingToUff"
+            android:text="Indo para algum lugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvName"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:text="10:30 - 19/09/2019"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_below="@+id/tvIsGoingToUff"/>
+
 
     </RelativeLayout>
 
