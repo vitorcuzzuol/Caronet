@@ -46,6 +46,10 @@ public class Dao {
     }
 
 
+    /**
+     *
+     * @return the current logged User
+     */
     public FirebaseUser getUser(){
         return auth.getCurrentUser();
     }
@@ -110,6 +114,13 @@ public class Dao {
                 });
     }
 
+    /**
+     *
+     * Calls authentication method to sign in using email and password system
+     *
+     * @param email e-mail as String
+     * @param pass password as String
+     */
     public void signIn (String email, String pass) {
 
         auth.signInWithEmailAndPassword(email,pass)
@@ -154,10 +165,18 @@ public class Dao {
 
     /**
      *
-     * @return the Rides Collection
+     * @return Rides Collection
      */
     public CollectionReference getClRides (){
         return this.clRides;
+    }
+
+    /**
+     *
+     * @return Users Collection
+     */
+    public CollectionReference getClUsers () {
+        return this.clUsers;
     }
 
 

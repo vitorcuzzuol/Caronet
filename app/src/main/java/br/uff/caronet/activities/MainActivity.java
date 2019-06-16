@@ -16,7 +16,6 @@ import android.widget.Switch;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -29,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button btReg, btLog;
     Dao dao;
-    CollectionReference users;
     RelativeLayout relativeLayout;
 
     @Override
@@ -42,13 +40,11 @@ public class MainActivity extends AppCompatActivity {
         btReg = findViewById(R.id.btReg);
         btLog = findViewById(R.id.btLog);
 
-        users = dao.getDb().collection("Users");
-
         //if user is already logged then get his attributes from db and store on a new User object
         if (dao.getUser() != null){
             Log.v("user auth id: ", dao.getUId());
 
-            DocumentReference userRef = users.document(dao.getUId());
+            DocumentReference userRef = dao.getClUsers().document(dao.getUId());
 
             //check if found the user from db
             userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
