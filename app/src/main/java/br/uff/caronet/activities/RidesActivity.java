@@ -1,57 +1,76 @@
 package br.uff.caronet.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import androidx.fragment.app.Fragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import br.uff.caronet.service.Dao;
+import br.uff.caronet.fragments.ChatFragment;
+import br.uff.caronet.fragments.FindRideFragment;
+import br.uff.caronet.fragments.MyRidesFragment;
+
 import br.uff.caronet.R;
-import br.uff.caronet.adapters.RidesAdapter;
-import br.uff.caronet.models.TestRide;
+
 
 public class RidesActivity extends AppCompatActivity {
 
-    private RidesAdapter ridesAdapter;
-    private Dao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
 
-        dao = Dao.get();
 
-        setUpRecycleView();
+        BottomNavigationView bottomNav = findViewById(R.id.nvBottomnav);
+
+        bottomNav.setSelectedItemId(R.id.itSearh);
+
+        bottomNav.setOnNavigationItemSelectedListener(navListner);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
+                new FindRideFragment()).commit();
 
     }
 
-    private void setUpRecycleView() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navListner =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        FirestoreRecyclerOptions<TestRide> opRides;
-        opRides = dao.setOpRides(dao.getClRides(), "departure");
+                    Fragment fgSelected = null;
 
-        ridesAdapter = new RidesAdapter(opRides);
+                    switch (menuItem.getItemId()){
+                        case R.id.itChat:
+                            fgSelected = new ChatFragment();
+                            break;
+                        case R.id.itMyRides:
+                            fgSelected = new MyRidesFragment();
+                            break;
+                        case R.id.itSearh:
+                            fgSelected = new FindRideFragment();
+                    }
 
-        RecyclerView rvRides = findViewById(R.id.rvRides);
-        rvRides.setHasFixedSize(true);
-        rvRides.setLayoutManager(new LinearLayoutManager(this));
-        rvRides.setAdapter(ridesAdapter);
-    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
+                           fgSelected).commit();
+
+                    return true;
+                }
+            };
+
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        ridesAdapter.startListening();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        ridesAdapter.stopListening();
     }
 }

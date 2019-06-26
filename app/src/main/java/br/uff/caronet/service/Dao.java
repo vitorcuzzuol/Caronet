@@ -1,6 +1,6 @@
 package br.uff.caronet.service;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -28,6 +28,7 @@ public class Dao {
     private CollectionReference clRides;
 
     private Dao (){
+
         this.db = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
         this.clUsers = db.collection("Users");
@@ -154,6 +155,7 @@ public class Dao {
 
 
     public FirestoreRecyclerOptions<TestRide> setOpRides (CollectionReference clRides, String field) {
+
         Query query = clRides.orderBy(field, Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()

@@ -1,6 +1,6 @@
 package br.uff.caronet.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import br.uff.caronet.R;
