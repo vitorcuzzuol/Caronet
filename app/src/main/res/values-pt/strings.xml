@@ -14,8 +14,9 @@
     <string name="edit_profile">Editar perfil</string>
     <string name="logout">Logout</string>
     <string name="chat">Chat</string>
-    <string name="rides">Rides</string>
-    <string name="my_rides">My Rides</string>
+    <string name="rides">Corridas</string>
+    <string name="my_rides">Minhas Caronas</string>
     <string name="find">Buscar</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="use_therms">Use Therms</string>
 </resources>
