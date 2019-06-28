@@ -1,12 +1,14 @@
 package br.uff.caronet.models;
 
 import java.util.Date;
+import java.util.List;
 
 public class TestRide {
 
     private Driver driver;
     private Date departure;
     private boolean goingToUff;
+    private List<ViewUser> passengers;
 
     public TestRide() {
     }
@@ -40,5 +42,13 @@ public class TestRide {
 
     public void setGoingToUff(boolean goingToUff) {
         this.goingToUff = goingToUff;
+    }
+
+    public List<ViewUser> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<ViewUser> passengers) {
+        this.passengers = passengers;
     }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
-    <item
-        android:id="@+id/itEditProfile"
-        android:title="@string/edit_profile"
-        android:icon="@drawable/ic_person"/>
-    <item
-        android:id="@+id/itUseTherms"
-        android:title="@string/use_therms"
-        android:icon="@drawable/ic_description"/>
+        <item
+            android:id="@+id/itEditProfile"
+            android:title="@string/edit_profile"
+            android:icon="@drawable/ic_person"/>
+        <item
+            android:id="@+id/itUseTherms"
+            android:title="@string/use_therms"
+            android:icon="@drawable/ic_description"/>
     </group>
 
     <group>

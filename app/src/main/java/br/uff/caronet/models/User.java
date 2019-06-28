@@ -6,36 +6,30 @@ public class User {
     private String name;
     private String email;
     private char gender;
-    private int birth;
-    private String password;
     private int celNumber;
     private boolean driver;
     private String carModel;
     private String carPlate;
-
+    private String photo;
 
 
     public User() {
         //Empty constructor is needed for firebase/firestore
     }
 
-    public User(String name, String email, char gender, int birth, String password, int celNumber, boolean driver) {
+    public User(String name, String email, char gender, int celNumber, boolean driver) {
         this.name = name;
         this.email = email;
         this.gender = gender;
-        this.birth = birth;
-        this.password = password;
         this.celNumber = celNumber;
         this.driver = driver;
     }
 
-    public User(String name, String email, char gender, int birth, String password,
+    public User(String name, String email, char gender,
                 int celNumber, boolean driver, String carModel, String carPlate) {
         this.name = name;
         this.email = email;
         this.gender = gender;
-        this.birth = birth;
-        this.password = password;
         this.celNumber = celNumber;
         this.driver = driver;
         this.carModel = carModel;
@@ -66,21 +60,6 @@ public class User {
         this.gender = gender;
     }
 
-    public int getBirth() {
-        return birth;
-    }
-
-    public void setBirth(int birth) {
-        this.birth = birth;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public int getCelNumber() {
         return celNumber;
@@ -121,4 +100,15 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
 }
+
+

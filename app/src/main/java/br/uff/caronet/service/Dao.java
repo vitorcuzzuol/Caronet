@@ -165,6 +165,18 @@ public class Dao {
         return opRides;
     }
 
+    public FirestoreRecyclerOptions<TestRide> setOpMyRides (CollectionReference clRides, String field) {
+
+        Query query = clRides.orderBy(field, Query.Direction.DESCENDING)
+                .whereEqualTo("driver.driverId", dao.getUId());
+
+        FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
+                .setQuery(query, TestRide.class)
+                .build();
+
+        return opRides;
+    }
+
     /**
      *
      * @return Rides Collection

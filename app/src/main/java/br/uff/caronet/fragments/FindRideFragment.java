@@ -30,14 +30,11 @@ public class FindRideFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         dao = Dao.get();
-
     }
 
     private void setUpRecycleView() {
