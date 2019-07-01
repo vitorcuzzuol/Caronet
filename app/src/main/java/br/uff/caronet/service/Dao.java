@@ -154,9 +154,9 @@ public class Dao {
     }
 
 
-    public FirestoreRecyclerOptions<TestRide> setOpRides (CollectionReference clRides, String field) {
+    public FirestoreRecyclerOptions<TestRide> setOpRides (CollectionReference clRides) {
 
-        Query query = clRides.orderBy(field, Query.Direction.DESCENDING);
+        Query query = clRides.orderBy("departure", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
                 .setQuery(query, TestRide.class)
@@ -165,9 +165,9 @@ public class Dao {
         return opRides;
     }
 
-    public FirestoreRecyclerOptions<TestRide> setOpMyRides (CollectionReference clRides, String field) {
+    public FirestoreRecyclerOptions<TestRide> setOpMyRides (CollectionReference clRides) {
 
-        Query query = clRides.orderBy(field, Query.Direction.DESCENDING)
+        Query query = clRides.orderBy("departure", Query.Direction.DESCENDING)
                 .whereEqualTo("driver.driverId", dao.getUId());
 
         FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()

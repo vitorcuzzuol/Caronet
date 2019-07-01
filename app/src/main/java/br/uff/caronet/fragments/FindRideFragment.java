@@ -25,7 +25,6 @@ public class FindRideFragment extends Fragment {
     private RidesAdapter ridesAdapter;
     private RecyclerView rvRides;
 
-
     public FindRideFragment() {
         // Required empty public constructor
     }
@@ -37,17 +36,13 @@ public class FindRideFragment extends Fragment {
         dao = Dao.get();
     }
 
-    private void setUpRecycleView() {
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        FirestoreRecyclerOptions<TestRide> opRides;
-        opRides = dao.setOpRides(dao.getClRides(), "departure");
-
-        ridesAdapter = new RidesAdapter(opRides);
-
-        rvRides.setHasFixedSize(true);
-        rvRides.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvRides.setAdapter(ridesAdapter);
+        ridesAdapter.startListening();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +54,18 @@ public class FindRideFragment extends Fragment {
         setUpRecycleView();
 
         return view;
+    }
 
+    private void setUpRecycleView() {
+
+        FirestoreRecyclerOptions<TestRide> opRides;
+        opRides = dao.setOpRides(dao.getClRides());
+
+        ridesAdapter = new RidesAdapter(opRides);
+
+        rvRides.setHasFixedSize(true);
+        rvRides.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRides.setAdapter(ridesAdapter);
     }
 
     @Override
@@ -69,10 +75,4 @@ public class FindRideFragment extends Fragment {
         ridesAdapter.stopListening();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        ridesAdapter.startListening();
-    }
 }
