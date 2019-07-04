@@ -19,4 +19,7 @@
     <string name="find">Find</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="use_therms">Use Therms</string>
+    <string name="goingfrom">Going from: </string>
+    <string name="to">To: </string>
+    <string name="passenger">Passenger</string>
 </resources>

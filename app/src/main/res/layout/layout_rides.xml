@@ -13,26 +13,32 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/tvName"
-            android:text="Nome Alguma Coisa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tvIsGoingToUff"
-            android:text="Indo para algum lugar"
+            android:id="@+id/tvDeparture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvName"/>
+            android:text="Saindo de: Algum lugar" />
+
+        <TextView
+            android:id="@+id/tvArrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDeparture"
+            android:text="Chegando em: Algum lugar"/>
 
         <TextView
             android:id="@+id/tvDate"
-            android:text="10:30 - 19/09/2019"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvArrival"
             android:ems="10"
-            android:layout_below="@+id/tvIsGoingToUff"/>
+            android:text="10:30 - 19/09/2019 - QUA" />
 
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome De Alguém"
+            android:layout_below="@id/tvDate"/>
 
     </RelativeLayout>
 

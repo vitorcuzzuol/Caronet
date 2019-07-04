@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
@@ -34,6 +35,9 @@ public class FindRideFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         dao = Dao.get();
+
+
+
     }
 
     @Override
@@ -51,6 +55,7 @@ public class FindRideFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_find_ride, container, false);
 
         rvRides = view.findViewById(R.id.rvRides);
+
         setUpRecycleView();
 
         return view;
@@ -74,5 +79,4 @@ public class FindRideFragment extends Fragment {
 
         ridesAdapter.stopListening();
     }
-
 }

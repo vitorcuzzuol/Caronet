@@ -4,17 +4,17 @@ public class ViewUser {
 
     private String id;
     private String name;
-    private String photo;
+   // private String photo;
 
     public ViewUser() {
 
     }
 
-    public ViewUser(String id, String name, String photo){
+    public ViewUser(String id, String name/*,String photo*/){
 
         this.id = id;
         this.name = name;
-        this.photo = photo;
+        //this.photo = photo;
     }
 
     public String getId() {
@@ -33,11 +33,11 @@ public class ViewUser {
         this.name = name;
     }
 
-    public String getPhoto() {
+    /*public String getPhoto() {
         return photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
+    }*/
 }

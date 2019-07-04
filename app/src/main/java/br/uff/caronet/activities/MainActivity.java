@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
                         //store data on created User object
                         TestUser user = userRef.toObject(TestUser.class);
+
+                        dao.setTestUser(user);
                         Log.v("User auto-logged name: ", user.getName());
 
                         Intent intent = new Intent(MainActivity.this, RidesActivity.class);

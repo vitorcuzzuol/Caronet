@@ -5,26 +5,33 @@ import java.util.List;
 
 public class TestRide {
 
-    private Driver driver;
+    private ViewUser driver;
     private Date departure;
     private boolean goingToUff;
     private List<ViewUser> passengers;
+    private String campus;
+    private String neighborhood;
 
     public TestRide() {
+
     }
 
-    public TestRide(Driver driver, Date departure, boolean goingToUff) {
+    public TestRide(ViewUser driver, Date departure, boolean goingToUff,
+                    String campus, String neighborhood, List<ViewUser> passengers) {
 
         this.driver = driver;
         this.departure = departure;
         this.goingToUff = goingToUff;
+        this.campus = campus;
+        this.neighborhood = neighborhood;
+        this.passengers = passengers;
     }
 
-    public Driver getDriver() {
+    public ViewUser getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(ViewUser driver) {
         this.driver = driver;
     }
 
@@ -50,5 +57,21 @@ public class TestRide {
 
     public void setPassengers(List<ViewUser> passengers) {
         this.passengers = passengers;
+    }
+
+    public String getCampus() {
+        return campus;
+    }
+
+    public void setCampus(String campus) {
+        this.campus = campus;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 }

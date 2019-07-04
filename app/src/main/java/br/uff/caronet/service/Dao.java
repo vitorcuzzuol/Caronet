@@ -19,6 +19,7 @@ import com.google.firebase.firestore.Query;
 
 import br.uff.caronet.models.TestRide;
 import br.uff.caronet.models.TestUser;
+import br.uff.caronet.models.ViewUser;
 
 public class Dao {
 
@@ -26,6 +27,8 @@ public class Dao {
     private FirebaseAuth auth;
     private CollectionReference clUsers;
     private CollectionReference clRides;
+    private TestUser testUser;
+
 
     private Dao (){
 
@@ -44,6 +47,14 @@ public class Dao {
             dao = new Dao();
         }
         return dao;
+    }
+
+    public TestUser getTestUser() {
+        return testUser;
+    }
+
+    public void setTestUser(TestUser testUser) {
+        this.testUser = testUser;
     }
 
 
@@ -165,17 +176,32 @@ public class Dao {
         return opRides;
     }
 
-    public FirestoreRecyclerOptions<TestRide> setOpMyRides (CollectionReference clRides) {
+    public FirestoreRecyclerOptions<TestRide> setOpMyRides (CollectionReference clRides, boolean isDriver) {
 
-        Query query = clRides.orderBy("departure", Query.Direction.DESCENDING)
-                .whereEqualTo("driver.driverId", dao.getUId());
+        if (isDriver){
+            Query query = clRides
+                    .whereEqualTo("driver.id", dao.getUId())
+                    .orderBy("departure", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
-                .setQuery(query, TestRide.class)
-                .build();
+            FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
+                    .setQuery(query, TestRide.class)
+                    .build();
 
-        return opRides;
+            return opRides;
+        }
+        else{
+            ViewUser user = new ViewUser(dao.getUId(),dao.getTestUser().getName());
+            Query query = clRides
+                    .whereArrayContains("passengers", user)
+                    .orderBy("departure", Query.Direction.DESCENDING);
+
+            FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
+                    .setQuery(query, TestRide.class)
+                    .build();
+            return opRides;
+        }
     }
+
 
     /**
      *
@@ -192,7 +218,6 @@ public class Dao {
     public CollectionReference getClUsers () {
         return this.clUsers;
     }
-
 
 }
 
