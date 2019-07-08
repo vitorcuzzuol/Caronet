@@ -1,0 +1,41 @@
+package br.uff.caronet.activities;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+
+import br.uff.caronet.R;
+import br.uff.caronet.models.TestRide;
+import br.uff.caronet.models.ViewUser;
+
+public class RideDetail extends AppCompatActivity {
+
+    private TestRide ride;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ride_detail);
+
+        ride = getIntent().getExtras().getParcelable("ride");
+
+        if (ride != null){
+            Log.v("ride: ",
+                    ride.getCampus()
+                    +ride.isGoingToUff()
+                    +ride.getNeighborhood()
+                    +ride.getDeparture()
+            );
+            if (ride.getDriver() != null){
+                Log.v("driver: ", ride.getDriver().getName());
+            }
+            if (ride.getPassengers() != null){
+                for (ViewUser passenger: ride.getPassengers()){
+                    Log.v("passenger: ", passenger.getName());
+                }
+            }
+        }
+
+    }
+}

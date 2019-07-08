@@ -1,12 +1,14 @@
 package br.uff.caronet.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,9 @@ import android.widget.Button;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import br.uff.caronet.Util.OnItemClickListener;
+import br.uff.caronet.activities.RideDetail;
+import br.uff.caronet.activities.RidesActivity;
 import br.uff.caronet.service.Dao;
 import br.uff.caronet.R;
 import br.uff.caronet.adapters.RidesAdapter;
@@ -36,8 +41,6 @@ public class FindRideFragment extends Fragment {
 
         dao = Dao.get();
 
-
-
     }
 
     @Override
@@ -45,6 +48,17 @@ public class FindRideFragment extends Fragment {
         super.onStart();
 
         ridesAdapter.startListening();
+
+        ridesAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, TestRide ride) {
+                Log.v("item view clicked!", ride.getDriver().getId());
+
+                Intent intent = new Intent(getContext(), RideDetail.class);
+                intent.putExtra("ride", ride);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -71,6 +85,7 @@ public class FindRideFragment extends Fragment {
         rvRides.setHasFixedSize(true);
         rvRides.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRides.setAdapter(ridesAdapter);
+
     }
 
     @Override
@@ -79,4 +94,5 @@ public class FindRideFragment extends Fragment {
 
         ridesAdapter.stopListening();
     }
+
 }

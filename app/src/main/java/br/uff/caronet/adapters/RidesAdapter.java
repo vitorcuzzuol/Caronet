@@ -1,34 +1,31 @@
 package br.uff.caronet.adapters;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import br.uff.caronet.R;
-import br.uff.caronet.activities.MainActivity;
+import br.uff.caronet.Util.OnItemClickListener;
 import br.uff.caronet.models.TestRide;
 import br.uff.caronet.models.ViewUser;
-import br.uff.caronet.service.Dao;
 
 public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapter.ViewHolderRides>{
 
-    /**
-     * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
-     * FirestoreRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+    public OnItemClickListener mListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+
+        mListener = listener;
+    }
+
     public RidesAdapter(@NonNull FirestoreRecyclerOptions<TestRide> options) {
         super(options);
     }
@@ -48,8 +45,6 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapt
             arrival += model.getNeighborhood();
         }
 
-
-
         holder.tvName.setText(model.getDriver().getName());
         holder.tvDate.setText(model.getDeparture().toString());
         holder.tvDeparture.setText(departure);
@@ -59,14 +54,9 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapt
             @Override
             public void onClick(View v) {
 
-                Log.v("Clicked on: ","Driver Id: "+model.getDriver().getId()+
-                        " - Name: "+model.getDriver().getName());
-
-                for (ViewUser user: model.getPassengers()){
-                    Log.v("passenger.id: ", user.getId());
-                    Log.v("passenger.name: ", user.getName());
+                if  (mListener != null){
+                    mListener.onItemClick(v, model);
                 }
-
             }
         });
 

@@ -1,6 +1,9 @@
 package br.uff.caronet.models;
 
-public class ViewUser {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ViewUser implements Parcelable {
 
     private String id;
     private String name;
@@ -17,6 +20,8 @@ public class ViewUser {
         //this.photo = photo;
     }
 
+
+
     public String getId() {
         return id;
     }
@@ -32,6 +37,37 @@ public class ViewUser {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    public ViewUser(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+    }
+
+    public static final Creator<ViewUser> CREATOR = new Creator<ViewUser>() {
+        @Override
+        public ViewUser createFromParcel(Parcel in) {
+            return new ViewUser(in);
+        }
+
+        @Override
+        public ViewUser[] newArray(int size) {
+            return new ViewUser[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
 
     /*public String getPhoto() {
         return photo;
