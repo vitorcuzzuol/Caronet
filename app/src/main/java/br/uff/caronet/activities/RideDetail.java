@@ -12,6 +12,7 @@ import br.uff.caronet.models.ViewUser;
 public class RideDetail extends AppCompatActivity {
 
     private TestRide ride;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,11 @@ public class RideDetail extends AppCompatActivity {
         setContentView(R.layout.activity_ride_detail);
 
         ride = getIntent().getExtras().getParcelable("ride");
+        id = getIntent().getStringExtra("id");
+
+        if (id != null){
+            Log.v("ride id: ", id);
+        }
 
         if (ride != null){
             Log.v("ride: ",

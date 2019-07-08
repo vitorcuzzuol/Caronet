@@ -31,7 +31,7 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapt
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolderRides holder, int position, @NonNull final TestRide model) {
+    protected void onBindViewHolder(@NonNull ViewHolderRides holder, final int position, @NonNull final TestRide model) {
 
         String departure = "From: ";
         String arrival = "To: ";
@@ -55,7 +55,7 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapt
             public void onClick(View v) {
 
                 if  (mListener != null){
-                    mListener.onItemClick(v, model);
+                    mListener.onItemClick(v, model, getSnapshots().getSnapshot(position).getId());
                 }
             }
         });

@@ -51,11 +51,12 @@ public class FindRideFragment extends Fragment {
 
         ridesAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, TestRide ride) {
-                Log.v("item view clicked!", ride.getDriver().getId());
+            public void onItemClick(View view, TestRide ride, String id) {
+                Log.v("item view clicked!", id);
 
                 Intent intent = new Intent(getContext(), RideDetail.class);
                 intent.putExtra("ride", ride);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
