@@ -1,6 +1,8 @@
-package br.uff.caronet.service;
+package br.uff.caronet.dao;
 
 import androidx.annotation.NonNull;
+
+import android.content.Context;
 import android.util.Log;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -14,9 +16,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import br.uff.caronet.util.Utils;
 import br.uff.caronet.models.TestRide;
 import br.uff.caronet.models.TestUser;
 import br.uff.caronet.models.ViewUser;
@@ -30,7 +34,7 @@ public class Dao {
     private TestUser testUser;
 
 
-    private Dao (){
+    private Dao(){
 
         this.db = FirebaseFirestore.getInstance();
         this.auth = FirebaseAuth.getInstance();
@@ -190,7 +194,7 @@ public class Dao {
             return opRides;
         }
         else{
-            ViewUser user = new ViewUser(dao.getUId(),dao.getTestUser().getName());
+            ViewUser user = new ViewUser(dao.getUId(), dao.getTestUser().getName());
             Query query = clRides
                     .whereArrayContains("passengers", user)
                     .orderBy("departure", Query.Direction.DESCENDING);
@@ -217,6 +221,23 @@ public class Dao {
      */
     public CollectionReference getClUsers () {
         return this.clUsers;
+    }
+
+    public void addPassenger(final Context context, String rideId, ViewUser passenger){
+
+        clRides.document(rideId)
+                .update("passengers", FieldValue.arrayUnion(passenger))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Utils.showToast(context, "Added on Ride!");
+                        }
+                        else{
+                            Utils.showToast(context, "error");
+                        }
+                    }
+                });
     }
 
 }

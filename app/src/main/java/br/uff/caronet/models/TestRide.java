@@ -80,8 +80,6 @@ public class TestRide implements Parcelable {
         this.neighborhood = neighborhood;
     }
 
-
-
     public static final Creator<TestRide> CREATOR = new Creator<TestRide>() {
         @Override
         public TestRide createFromParcel(Parcel in) {
@@ -93,7 +91,6 @@ public class TestRide implements Parcelable {
             return new TestRide[size];
         }
     };
-
 
     @Override
     public int describeContents() {

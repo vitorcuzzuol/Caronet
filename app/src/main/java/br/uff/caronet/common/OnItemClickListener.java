@@ -1,8 +1,6 @@
-package br.uff.caronet.Util;
+package br.uff.caronet.common;
 
 import android.view.View;
-
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import br.uff.caronet.models.TestRide;
 

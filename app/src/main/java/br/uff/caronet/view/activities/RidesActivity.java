@@ -1,4 +1,4 @@
-package br.uff.caronet.activities;
+package br.uff.caronet.view.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +8,9 @@ import android.view.MenuItem;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import br.uff.caronet.fragments.ChatFragment;
-import br.uff.caronet.fragments.FindRideFragment;
-import br.uff.caronet.fragments.MyRidesFragment;
+import br.uff.caronet.view.fragments.ChatFragment;
+import br.uff.caronet.view.fragments.FindRideFragment;
+import br.uff.caronet.view.fragments.MyRidesFragment;
 
 import br.uff.caronet.R;
 

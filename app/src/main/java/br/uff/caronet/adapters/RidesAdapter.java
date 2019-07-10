@@ -13,25 +13,30 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import br.uff.caronet.R;
-import br.uff.caronet.Util.OnItemClickListener;
+import br.uff.caronet.common.OnItemClickListener;
+import br.uff.caronet.dao.Dao;
 import br.uff.caronet.models.TestRide;
+import br.uff.caronet.models.TestUser;
 import br.uff.caronet.models.ViewUser;
 
 public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapter.ViewHolderRides>{
 
     public OnItemClickListener mListener;
+    private boolean isSearching;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
 
         mListener = listener;
     }
 
-    public RidesAdapter(@NonNull FirestoreRecyclerOptions<TestRide> options) {
+    public RidesAdapter(@NonNull FirestoreRecyclerOptions<TestRide> options, boolean isSearching) {
         super(options);
+        this.isSearching = isSearching;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolderRides holder, final int position, @NonNull final TestRide model) {
+
 
         String departure = "From: ";
         String arrival = "To: ";
@@ -44,6 +49,7 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapt
             departure += model.getCampus();
             arrival += model.getNeighborhood();
         }
+
 
         holder.tvName.setText(model.getDriver().getName());
         holder.tvDate.setText(model.getDeparture().toString());

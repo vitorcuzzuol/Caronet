@@ -1,6 +1,7 @@
-package br.uff.caronet.fragments;
+package br.uff.caronet.view.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,26 +12,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import br.uff.caronet.dao.Dao;
+import br.uff.caronet.view.activities.RideDetail;
+import br.uff.caronet.common.OnItemClickListener;
 import br.uff.caronet.R;
 import br.uff.caronet.adapters.RidesAdapter;
 import br.uff.caronet.models.TestRide;
-import br.uff.caronet.service.Dao;
 
 
-public class MyRidesFragment extends Fragment {
-
+public class FindRideFragment extends Fragment {
 
     private Dao dao;
     private RidesAdapter ridesAdapter;
     private RecyclerView rvRides;
-    private Button btDriver;
-    private Button btPassenger;
 
-    public MyRidesFragment() {
+    public FindRideFragment() {
         // Required empty public constructor
     }
 
@@ -39,6 +38,7 @@ public class MyRidesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         dao = Dao.get();
+
     }
 
     @Override
@@ -47,7 +47,18 @@ public class MyRidesFragment extends Fragment {
 
         ridesAdapter.startListening();
 
+        ridesAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, TestRide ride, String id) {
+                Log.v("item view clicked!", id);
 
+                Intent intent = new Intent(getContext(), RideDetail.class);
+                intent.putExtra("ride", ride);
+                intent.putExtra("id", id);
+                startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -55,50 +66,26 @@ public class MyRidesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_rides, container, false);
+        View view = inflater.inflate(R.layout.fragment_find_ride, container, false);
 
         rvRides = view.findViewById(R.id.rvRides);
 
-        btDriver = view.findViewById(R.id.btDriver);
-        btPassenger = view.findViewById(R.id.btPassenger);
-
-        btDriver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("btDriver: " ,"clicked!");
-                ridesAdapter.stopListening();
-                setUpRecycleView(true);
-                ridesAdapter.startListening();
-
-            }
-        });
-
-        btPassenger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("btPassenger: " ,"clicked!");
-                ridesAdapter.stopListening();
-                setUpRecycleView(false);
-                ridesAdapter.startListening();
-            }
-        });
-
-        setUpRecycleView(false);
+        setUpRecycleView();
 
         return view;
     }
 
-
-    private void setUpRecycleView(boolean isDriver) {
+    private void setUpRecycleView() {
 
         FirestoreRecyclerOptions<TestRide> opRides;
-        opRides = dao.setOpMyRides(dao.getClRides(), isDriver);
+        opRides = dao.setOpRides(dao.getClRides());
 
-        ridesAdapter = new RidesAdapter(opRides);
+        ridesAdapter = new RidesAdapter(opRides, true);
 
         rvRides.setHasFixedSize(true);
         rvRides.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRides.setAdapter(ridesAdapter);
+
     }
 
     @Override

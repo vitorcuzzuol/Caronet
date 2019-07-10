@@ -1,4 +1,4 @@
-package br.uff.caronet.fragments;
+package br.uff.caronet.view.fragments;
 
 import android.os.Bundle;
 

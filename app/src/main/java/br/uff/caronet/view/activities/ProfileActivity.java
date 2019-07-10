@@ -1,17 +1,15 @@
 
-package br.uff.caronet.activities;
+package br.uff.caronet.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firestore.v1.WriteResult;
 
+import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
-import br.uff.caronet.models.TestRide;
 import br.uff.caronet.models.TestUser;
-import br.uff.caronet.service.Dao;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -21,9 +19,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         TestUser user;
 
+        dao = Dao.get();
         user = dao.getTestUser();
 
         dao.getClUsers().document(dao.getUId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

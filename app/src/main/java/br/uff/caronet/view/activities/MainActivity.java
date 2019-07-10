@@ -1,4 +1,4 @@
-package br.uff.caronet.activities;
+package br.uff.caronet.view.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import br.uff.caronet.service.Dao;
+import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
 import br.uff.caronet.models.TestUser;
 
