@@ -3,7 +3,6 @@ package br.uff.caronet.adapters;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import br.uff.caronet.R;
 import br.uff.caronet.common.OnItemClickListener;
-import br.uff.caronet.dao.Dao;
-import br.uff.caronet.models.TestRide;
-import br.uff.caronet.models.TestUser;
-import br.uff.caronet.models.ViewUser;
+import br.uff.caronet.models.Ride;
 
-public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapter.ViewHolderRides>{
+public class RidesAdapter extends FirestoreRecyclerAdapter <Ride, RidesAdapter.ViewHolderRides>{
 
     public OnItemClickListener mListener;
     private boolean isSearching;
@@ -29,13 +25,13 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <TestRide, RidesAdapt
         mListener = listener;
     }
 
-    public RidesAdapter(@NonNull FirestoreRecyclerOptions<TestRide> options, boolean isSearching) {
+    public RidesAdapter(@NonNull FirestoreRecyclerOptions<Ride> options, boolean isSearching) {
         super(options);
         this.isSearching = isSearching;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolderRides holder, final int position, @NonNull final TestRide model) {
+    protected void onBindViewHolder(@NonNull ViewHolderRides holder, final int position, @NonNull final Ride model) {
 
 
         String departure = "From: ";

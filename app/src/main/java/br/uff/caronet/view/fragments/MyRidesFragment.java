@@ -18,7 +18,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
 import br.uff.caronet.adapters.RidesAdapter;
-import br.uff.caronet.models.TestRide;
+import br.uff.caronet.models.Ride;
 
 
 public class MyRidesFragment extends Fragment {
@@ -91,7 +91,7 @@ public class MyRidesFragment extends Fragment {
 
     private void setUpRecycleView(boolean isDriver) {
 
-        FirestoreRecyclerOptions<TestRide> opRides;
+        FirestoreRecyclerOptions<Ride> opRides;
         opRides = dao.setOpMyRides(dao.getClRides(), isDriver);
 
         ridesAdapter = new RidesAdapter(opRides, false);

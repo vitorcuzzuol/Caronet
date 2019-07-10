@@ -9,7 +9,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
-import br.uff.caronet.models.TestUser;
+import br.uff.caronet.models.User;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -19,10 +19,10 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        TestUser user;
+        User user;
 
         dao = Dao.get();
-        user = dao.getTestUser();
+        user = dao.getUser();
 
         dao.getClUsers().document(dao.getUId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

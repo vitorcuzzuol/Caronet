@@ -20,7 +20,7 @@ import br.uff.caronet.view.activities.RideDetail;
 import br.uff.caronet.common.OnItemClickListener;
 import br.uff.caronet.R;
 import br.uff.caronet.adapters.RidesAdapter;
-import br.uff.caronet.models.TestRide;
+import br.uff.caronet.models.Ride;
 
 
 public class FindRideFragment extends Fragment {
@@ -49,7 +49,7 @@ public class FindRideFragment extends Fragment {
 
         ridesAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, TestRide ride, String id) {
+            public void onItemClick(View view, Ride ride, String id) {
                 Log.v("item view clicked!", id);
 
                 Intent intent = new Intent(getContext(), RideDetail.class);
@@ -77,7 +77,7 @@ public class FindRideFragment extends Fragment {
 
     private void setUpRecycleView() {
 
-        FirestoreRecyclerOptions<TestRide> opRides;
+        FirestoreRecyclerOptions<Ride> opRides;
         opRides = dao.setOpRides(dao.getClRides());
 
         ridesAdapter = new RidesAdapter(opRides, true);

@@ -7,12 +7,12 @@ import android.util.Log;
 
 import br.uff.caronet.R;
 import br.uff.caronet.dao.Dao;
-import br.uff.caronet.models.TestRide;
+import br.uff.caronet.models.Ride;
 import br.uff.caronet.models.ViewUser;
 
 public class RideDetail extends AppCompatActivity {
 
-    private TestRide ride;
+    private Ride ride;
     private String id;
     private Dao dao = Dao.get();
 
@@ -47,10 +47,10 @@ public class RideDetail extends AppCompatActivity {
 
         ViewUser user = new ViewUser(
                 dao.getUId(),
-                dao.getTestUser().getName()
+                dao.getUser().getName()
         );
 
-        //dao.addPassenger(getApplicationContext(),id,user);
+        dao.addPassenger(getApplicationContext(),id,user);
     }
 
 }

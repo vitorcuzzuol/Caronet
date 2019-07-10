@@ -21,8 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import br.uff.caronet.util.Utils;
-import br.uff.caronet.models.TestRide;
-import br.uff.caronet.models.TestUser;
+import br.uff.caronet.models.Ride;
+import br.uff.caronet.models.User;
 import br.uff.caronet.models.ViewUser;
 
 public class Dao {
@@ -31,7 +31,7 @@ public class Dao {
     private FirebaseAuth auth;
     private CollectionReference clUsers;
     private CollectionReference clRides;
-    private TestUser testUser;
+    private User user;
 
 
     private Dao(){
@@ -53,12 +53,12 @@ public class Dao {
         return dao;
     }
 
-    public TestUser getTestUser() {
-        return testUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setTestUser(TestUser testUser) {
-        this.testUser = testUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 
@@ -66,7 +66,7 @@ public class Dao {
      *
      * @return the current logged User
      */
-    public FirebaseUser getUser(){
+    public FirebaseUser getUserAuth(){
         return auth.getCurrentUser();
     }
 
@@ -103,7 +103,7 @@ public class Dao {
                         Log.v("auth created!: ", auth.getUid());
 
                         //creating user Object and setting values typed on screen to store on db
-                        TestUser user = new TestUser(name, email, isDriver);
+                        User user = new User(name, email, isDriver);
 
                         //adding user on Firestore db with the same ID as Authenticator
                         clUsers.document(auth.getUid()).set(user)
@@ -152,7 +152,7 @@ public class Dao {
                                 if (task.isSuccessful()){
                                     DocumentSnapshot userRef = task.getResult();
 
-                                    TestUser user = userRef.toObject(TestUser.class);
+                                    User user = userRef.toObject(User.class);
                                     Log.v("User Logged name: ", user.getName());
 
                                 }
@@ -169,38 +169,38 @@ public class Dao {
     }
 
 
-    public FirestoreRecyclerOptions<TestRide> setOpRides (CollectionReference clRides) {
+    public FirestoreRecyclerOptions<Ride> setOpRides (CollectionReference clRides) {
 
         Query query = clRides.orderBy("departure", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
-                .setQuery(query, TestRide.class)
+        FirestoreRecyclerOptions<Ride> opRides = new FirestoreRecyclerOptions.Builder<Ride>()
+                .setQuery(query, Ride.class)
                 .build();
 
         return opRides;
     }
 
-    public FirestoreRecyclerOptions<TestRide> setOpMyRides (CollectionReference clRides, boolean isDriver) {
+    public FirestoreRecyclerOptions<Ride> setOpMyRides (CollectionReference clRides, boolean isDriver) {
 
         if (isDriver){
             Query query = clRides
                     .whereEqualTo("driver.id", dao.getUId())
                     .orderBy("departure", Query.Direction.DESCENDING);
 
-            FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
-                    .setQuery(query, TestRide.class)
+            FirestoreRecyclerOptions<Ride> opRides = new FirestoreRecyclerOptions.Builder<Ride>()
+                    .setQuery(query, Ride.class)
                     .build();
 
             return opRides;
         }
         else{
-            ViewUser user = new ViewUser(dao.getUId(), dao.getTestUser().getName());
+            ViewUser user = new ViewUser(dao.getUId(), dao.getUser().getName());
             Query query = clRides
                     .whereArrayContains("passengers", user)
                     .orderBy("departure", Query.Direction.DESCENDING);
 
-            FirestoreRecyclerOptions<TestRide> opRides = new FirestoreRecyclerOptions.Builder<TestRide>()
-                    .setQuery(query, TestRide.class)
+            FirestoreRecyclerOptions<Ride> opRides = new FirestoreRecyclerOptions.Builder<Ride>()
+                    .setQuery(query, Ride.class)
                     .build();
             return opRides;
         }

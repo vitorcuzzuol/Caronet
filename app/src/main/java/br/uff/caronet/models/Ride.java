@@ -1,77 +1,123 @@
 package br.uff.caronet.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class Ride {
+public class Ride implements Parcelable {
 
-    private User Driver;
-    private ChatMessage chat;
-    private List<User> passengers;
-    private boolean goingToUFF;
-    private Campi campus;
-    private int spots;
-
+    private ViewUser driver;
+    private List<ViewUser> passengers;
+    private boolean goingToUff;
+    private Date departure;
+    private String campus;
+    private String neighborhood;
 
     public Ride() {
-        // Needed for firebase/firestore
+
     }
 
+    public Ride(ViewUser driver, Date departure, boolean goingToUff,
+                String campus, String neighborhood, List<ViewUser> passengers) {
 
-    public Ride(User driver, ChatMessage chat, List<User> passengers, boolean goingToUFF, Campi campus, int spots) {
-        Driver = driver;
-        this.chat = chat;
-        this.passengers = passengers;
-        this.goingToUFF = goingToUFF;
+        this.driver = driver;
+        this.departure = departure;
+        this.goingToUff = goingToUff;
         this.campus = campus;
-        this.spots = spots;
-    }
-
-    public int getSpots() {
-        return spots;
-    }
-
-    public void setSpots(int spots) {
-        this.spots = spots;
+        this.neighborhood = neighborhood;
+        this.passengers = passengers;
     }
 
 
-    public User getDriver() {
-        return Driver;
+    public ViewUser getDriver() {
+        return driver;
     }
 
-    public void setDriver(User driver) {
-        Driver = driver;
+    public void setDriver(ViewUser driver) {
+        this.driver = driver;
     }
 
-    public ChatMessage getChat() {
-        return chat;
+    public Date getDeparture() {
+        return departure;
     }
 
-    public void setChat(ChatMessage chat) {
-        this.chat = chat;
+    public void setDeparture(Date departure) {
+        this.departure = departure;
     }
 
-    public List<User> getPassengers() {
+    public boolean isGoingToUff() {
+        return goingToUff;
+    }
+
+    public void setGoingToUff(boolean goingToUff) {
+        this.goingToUff = goingToUff;
+    }
+
+    public List<ViewUser> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(List<User> passengers) {
+    public void setPassengers(List<ViewUser> passengers) {
         this.passengers = passengers;
     }
 
-    public boolean isGoingToUFF() {
-        return goingToUFF;
-    }
-
-    public void setGoingToUFF(boolean goingToUFF) {
-        this.goingToUFF = goingToUFF;
-    }
-
-    public Campi getCampus() {
+    public String getCampus() {
         return campus;
     }
 
-    public void setCampus(Campi campus) {
+    public void setCampus(String campus) {
         this.campus = campus;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
+    }
+
+    public static final Creator<Ride> CREATOR = new Creator<Ride>() {
+        @Override
+        public Ride createFromParcel(Parcel in) {
+            return new Ride(in);
+        }
+
+        @Override
+        public Ride[] newArray(int size) {
+            return new Ride[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeParcelable(driver, flags);
+        dest.writeTypedList(passengers);
+        dest.writeInt (goingToUff ? 1 : 0);
+        dest.writeString(campus);
+        dest.writeString(neighborhood);
+        dest.writeLong(departure != null ? departure.getTime() : -1);
+
+    }
+
+    protected Ride(Parcel in) {
+
+        driver = in.readParcelable(ViewUser.class.getClassLoader());
+        passengers = new ArrayList<ViewUser>();
+        in.readTypedList(passengers, ViewUser.CREATOR);
+        goingToUff = (in.readInt() != 0);
+        campus = in.readString();
+        neighborhood = in.readString();
+        departure = in.readLong() == -1 ? null : new Date(in.readLong());
+
     }
 }

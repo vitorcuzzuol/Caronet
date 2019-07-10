@@ -21,7 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
-import br.uff.caronet.models.TestUser;
+import br.uff.caronet.models.User;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         btLog = findViewById(R.id.btLog);
 
         //if user is already logged then get his attributes from db and store on a new User object
-        if (dao.getUser() != null){
+        if (dao.getUserAuth() != null){
             Log.v("user auth id: ", dao.getUId());
 
             DocumentReference userRef = dao.getClUsers().document(dao.getUId());
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
                         DocumentSnapshot userRef = task.getResult();
 
                         //store data on created User object
-                        TestUser user = userRef.toObject(TestUser.class);
+                        User user = userRef.toObject(User.class);
 
-                        dao.setTestUser(user);
+                        dao.setUser(user);
                         Log.v("User auto-logged name: ", user.getName());
 
                         Intent intent = new Intent(MainActivity.this, RidesActivity.class);
