@@ -7,7 +7,7 @@ public class ViewUser implements Parcelable {
 
     private String id;
     private String name;
-   // private String photo;
+    private String photo;
 
     public ViewUser() {
 
@@ -17,10 +17,8 @@ public class ViewUser implements Parcelable {
 
         this.id = id;
         this.name = name;
-        //this.photo = photo;
+        this.photo = photo;
     }
-
-
 
     public String getId() {
         return id;
@@ -38,16 +36,32 @@ public class ViewUser implements Parcelable {
         this.name = name;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+
+
+    /**Parceble Functions
+     *
+     * Used for moving an object from an activity/fragment to another.
+     */
 
     public ViewUser(Parcel in) {
         id = in.readString();
         name = in.readString();
+        photo = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
+        dest.writeString(photo);
     }
 
     public static final Creator<ViewUser> CREATOR = new Creator<ViewUser>() {
@@ -68,12 +82,4 @@ public class ViewUser implements Parcelable {
     }
 
 
-
-    /*public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }*/
 }

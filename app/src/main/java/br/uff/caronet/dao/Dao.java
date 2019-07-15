@@ -31,6 +31,7 @@ public class Dao {
     private FirebaseAuth auth;
     private CollectionReference clUsers;
     private CollectionReference clRides;
+    private CollectionReference clZones;
     private User user;
 
 
@@ -40,6 +41,7 @@ public class Dao {
         this.auth = FirebaseAuth.getInstance();
         this.clUsers = db.collection("Users");
         this.clRides = db.collection("Rides");
+        this.clZones = db.collection("Zones");
     }
 
 
@@ -104,6 +106,7 @@ public class Dao {
 
                         //creating user Object and setting values typed on screen to store on db
                         User user = new User(name, email, isDriver);
+                        user.setId(auth.getUid());
 
                         //adding user on Firestore db with the same ID as Authenticator
                         clUsers.document(auth.getUid()).set(user)
@@ -221,6 +224,10 @@ public class Dao {
      */
     public CollectionReference getClUsers () {
         return this.clUsers;
+    }
+
+    public CollectionReference getClZones() {
+        return clZones;
     }
 
     public void addPassenger(final Context context, String rideId, ViewUser passenger){

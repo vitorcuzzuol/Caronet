@@ -12,8 +12,6 @@ import br.uff.caronet.models.ViewUser;
 
 public class RideDetail extends AppCompatActivity {
 
-    private Ride ride;
-    private String id;
     private Dao dao = Dao.get();
 
     @Override
@@ -21,13 +19,23 @@ public class RideDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_detail);
 
+        Ride ride;
+        String id;
+
         ride = getIntent().getExtras().getParcelable("ride");
         id = getIntent().getStringExtra("id");
 
-        if (id != null) {
-            Log.v("ride id: ", id);
-        }
+        showRideOnlog(ride);
 
+        /*ViewUser user = new ViewUser(
+                dao.getUId(),
+                dao.getUser().getName()
+        );
+
+        dao.addPassenger(getApplicationContext(),id,user);*/
+    }
+
+    private void showRideOnlog(Ride ride) {
         if (ride != null) {
             Log.v("ride: ",
                     ride.getCampus()
@@ -43,14 +51,12 @@ public class RideDetail extends AppCompatActivity {
                     Log.v("passenger: ", passenger.getName());
                 }
             }
+            if (ride.getCar() != null) {
+                Log.v("car plate: ", ride.getCar().getPlate());
+                Log.v("car model: ", ride.getCar().getModel());
+
+            }
         }
-
-        ViewUser user = new ViewUser(
-                dao.getUId(),
-                dao.getUser().getName()
-        );
-
-        dao.addPassenger(getApplicationContext(),id,user);
     }
 
 }

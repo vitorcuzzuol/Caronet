@@ -13,23 +13,11 @@ import br.uff.caronet.models.User;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private Dao dao;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        User user;
 
-        dao = Dao.get();
-        user = dao.getUser();
-
-        dao.getClUsers().document(dao.getUId()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-
-            }
-        });
 
     }
 }

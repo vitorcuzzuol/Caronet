@@ -17,6 +17,7 @@ import br.uff.caronet.R;
 
 public class RidesActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

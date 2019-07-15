@@ -22,4 +22,5 @@
     <string name="goingfrom">Going from: </string>
     <string name="to">To: </string>
     <string name="passenger">Passenger</string>
+    <string name="ride_description">Route, Reference point...</string>
 </resources>

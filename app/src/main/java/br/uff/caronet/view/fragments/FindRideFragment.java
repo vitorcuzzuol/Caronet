@@ -12,10 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.uff.caronet.dao.Dao;
+import br.uff.caronet.util.Utils;
+import br.uff.caronet.view.activities.NewRideActivity;
 import br.uff.caronet.view.activities.RideDetail;
 import br.uff.caronet.common.OnItemClickListener;
 import br.uff.caronet.R;
@@ -28,6 +32,7 @@ public class FindRideFragment extends Fragment {
     private Dao dao;
     private RidesAdapter ridesAdapter;
     private RecyclerView rvRides;
+    private FloatingActionButton fbButton;
 
     public FindRideFragment() {
         // Required empty public constructor
@@ -59,6 +64,17 @@ public class FindRideFragment extends Fragment {
 
             }
         });
+
+        fbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent= new Intent(getContext(), NewRideActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
     }
 
 
@@ -69,6 +85,7 @@ public class FindRideFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_find_ride, container, false);
 
         rvRides = view.findViewById(R.id.rvRides);
+        fbButton = view.findViewById(R.id.floatingab);
 
         setUpRecycleView();
 

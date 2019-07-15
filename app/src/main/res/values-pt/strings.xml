@@ -22,4 +22,5 @@
     <string name="goingfrom">Indo de: </string>
     <string name="to">Para: </string>
     <string name="passenger">Passageiro</string>
+    <string name="ride_description">Route, Reference point...</string>
 </resources>
