@@ -23,4 +23,7 @@
     <string name="to">Para: </string>
     <string name="passenger">Passageiro</string>
     <string name="ride_description">Route, Reference point...</string>
+    <string name="city">City</string>
+    <string name="zone">Zone</string>
+    <string name="neighborhood">Neighborhood</string>
 </resources>

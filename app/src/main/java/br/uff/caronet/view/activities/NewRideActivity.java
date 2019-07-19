@@ -28,18 +28,105 @@ public class NewRideActivity extends AppCompatActivity {
 
     private Spinner spZone;
     private Spinner spNeighborhood;
+    private Spinner spCity;
     private List<String> zones = new ArrayList<>();
     private List<String> neighborhoods = new ArrayList<>();
+    private List<String> cities = new ArrayList<>();
+    private String city;
     private ArrayAdapter<String> adapterZone;
     private ArrayAdapter<String> adapterNeighborhood;
+    private ArrayAdapter<String> adapterCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ride);
 
+        initSpinners();
+
+        Dao.get().getCities()
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name = document.getString("name");
+                        cities.add(name);
+                    }
+                    adapterCity.notifyDataSetChanged();
+                }
+            }
+        });
+
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.v("spCity", parent.getSelectedItem().toString());
+                city = parent.getSelectedItem().toString();
+
+                Dao.get().getClZones()
+                        .whereEqualTo("city", parent.getSelectedItem().toString())
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    zones.clear();
+                                    for (DocumentSnapshot document: task.getResult()){
+                                        String name = document.getString("name");
+                                        Log.v("Zone", name);
+                                        zones.add(name);
+                                    }
+                                    adapterZone.notifyDataSetChanged();
+                                }
+                            }
+                        });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spZone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, View view, int position, long id) {
+
+                Log.v("spZone Clicked", parent.getSelectedItem().toString());
+
+                Dao.get().getClZones()
+                        .whereEqualTo("name",parent.getSelectedItem().toString())
+                        .whereEqualTo("city", city)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Zone zone = document.toObject(Zone.class);
+                                neighborhoods = zone.getNeighborhoods();
+                            }
+                            adapterNeighborhood.clear();
+                            adapterNeighborhood.addAll(neighborhoods);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void initSpinners() {
+
         spZone = findViewById(R.id.spZone);
         spNeighborhood = findViewById(R.id.spNeighborhood);
+        spCity = findViewById(R.id.spCity);
 
         adapterZone = new ArrayAdapter<>(
                 getApplicationContext(),
@@ -55,53 +142,15 @@ public class NewRideActivity extends AppCompatActivity {
         );
         adapterNeighborhood.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
+        adapterCity = new ArrayAdapter<>(
+                getApplication(),
+                R.layout.support_simple_spinner_dropdown_item,
+                cities
+        );
+
         spZone.setAdapter(adapterZone);
         spNeighborhood.setAdapter(adapterNeighborhood);
-
-        Dao.get().getClZones().get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String name = document.getString("name");
-                        zones.add(name);
-                    }
-                    adapterZone.notifyDataSetChanged();
-                }
-            }
-        });
-
-
-        spZone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(final AdapterView<?> parent, View view, int position, long id) {
-
-                Log.v("spZone Clicked", parent.getSelectedItem().toString());
-
-                Dao.get().getClZones()
-                        .whereEqualTo("name",parent.getSelectedItem().toString())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                               Zone zone = document.toObject(Zone.class);
-                               neighborhoods = zone.getNeighborhoods();
-                            }
-
-                            adapterNeighborhood.clear();
-                            adapterNeighborhood.addAll(neighborhoods);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        spCity.setAdapter(adapterCity);
     }
 
 }

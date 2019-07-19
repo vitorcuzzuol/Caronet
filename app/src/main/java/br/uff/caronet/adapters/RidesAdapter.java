@@ -34,16 +34,16 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <Ride, RidesAdapter.V
     protected void onBindViewHolder(@NonNull ViewHolderRides holder, final int position, @NonNull final Ride model) {
 
 
-        String departure = "From: ";
-        String arrival = "To: ";
+        String departure = "De: ";
+        String arrival = "Para: ";
 
         if (model.isGoingToUff()){
-            departure += model.getNeighborhood();
+            departure += model.getNeighborhood().getName();
             arrival += model.getCampus();
         }
         else {
             departure += model.getCampus();
-            arrival += model.getNeighborhood();
+            arrival += model.getNeighborhood().getName();
         }
 
 

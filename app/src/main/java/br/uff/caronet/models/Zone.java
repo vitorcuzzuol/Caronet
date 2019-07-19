@@ -4,12 +4,14 @@ import java.util.List;
 
 public class Zone {
 
+
+    private String name;
+    private String city;
+    private List<String> neighborhoods;
+
     public Zone (){
 
     }
-
-    private String name;
-    private List<String> neighborhoods;
 
     public String getName() {
         return name;
@@ -17,6 +19,14 @@ public class Zone {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public List<String> getNeighborhoods() {

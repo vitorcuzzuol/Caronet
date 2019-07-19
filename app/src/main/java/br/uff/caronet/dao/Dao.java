@@ -32,6 +32,7 @@ public class Dao {
     private CollectionReference clUsers;
     private CollectionReference clRides;
     private CollectionReference clZones;
+    private CollectionReference clCities;
     private User user;
 
 
@@ -42,6 +43,7 @@ public class Dao {
         this.clUsers = db.collection("Users");
         this.clRides = db.collection("Rides");
         this.clZones = db.collection("Zones");
+        this.clCities = db.collection("Cities");
     }
 
 
@@ -228,6 +230,10 @@ public class Dao {
 
     public CollectionReference getClZones() {
         return clZones;
+    }
+
+    public CollectionReference getCities() {
+        return clCities;
     }
 
     public void addPassenger(final Context context, String rideId, ViewUser passenger){

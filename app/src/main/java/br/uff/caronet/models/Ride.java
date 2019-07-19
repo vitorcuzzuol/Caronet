@@ -11,21 +11,21 @@ public class Ride implements Parcelable {
 
     private String id;
     private ViewUser driver;
+    private Neighborhood neighborhood;
     private List<ViewUser> passengers;
     private boolean goingToUff;
     private Date departure;
     private String campus;
-    private String neighborhood;
     private int spots;
     private String description;
     private Car car;
 
     public Ride() {
-        //Required for Firestore
+
     }
 
     public Ride(String id, ViewUser driver, Date departure, boolean goingToUff,
-                String campus, String neighborhood, List<ViewUser> passengers, int spots) {
+                String campus, Neighborhood neighborhood, List<ViewUser> passengers, int spots) {
 
         this.id = id;
         this.driver = driver;
@@ -38,7 +38,7 @@ public class Ride implements Parcelable {
     }
 
     public Ride(ViewUser driver, Date departure, boolean goingToUff,
-                String campus, String neighborhood, int spots) {
+                String campus, Neighborhood neighborhood, int spots) {
 
         this.driver = driver;
         this.departure = departure;
@@ -46,6 +46,10 @@ public class Ride implements Parcelable {
         this.campus = campus;
         this.neighborhood = neighborhood;
         this.spots = spots;
+    }
+
+    public void setNeighborhood(Neighborhood neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public String getId() {
@@ -96,12 +100,8 @@ public class Ride implements Parcelable {
         this.campus = campus;
     }
 
-    public String getNeighborhood() {
+    public Neighborhood getNeighborhood() {
         return neighborhood;
-    }
-
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
     }
 
     public int getSpots() {
@@ -129,10 +129,8 @@ public class Ride implements Parcelable {
     }
 
 
-    /**Parceble Functions
-     *
-     * Used for moving an object from an activity/fragment to another.
-     */
+
+    //Used for moving an object from an activity/fragment to another.
 
     public static final Creator<Ride> CREATOR = new Creator<Ride>() {
         @Override
@@ -155,10 +153,10 @@ public class Ride implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
         dest.writeParcelable(driver, flags);
+        dest.writeParcelable(neighborhood, flags);
         dest.writeTypedList(passengers);
         dest.writeInt (goingToUff ? 1 : 0);
         dest.writeString(campus);
-        dest.writeString(neighborhood);
         dest.writeLong(departure != null ? departure.getTime() : -1);
         dest.writeInt(spots);
         dest.writeString(id);
@@ -167,11 +165,11 @@ public class Ride implements Parcelable {
     protected Ride(Parcel in) {
 
         driver = in.readParcelable(ViewUser.class.getClassLoader());
+        neighborhood = in.readParcelable(Neighborhood.class.getClassLoader());
         passengers = new ArrayList<ViewUser>();
         in.readTypedList(passengers, ViewUser.CREATOR);
         goingToUff = (in.readInt() != 0);
         campus = in.readString();
-        neighborhood = in.readString();
         departure = in.readLong() == -1 ? null : new Date(in.readLong());
         spots = in.readInt();
         id = in.readString();
