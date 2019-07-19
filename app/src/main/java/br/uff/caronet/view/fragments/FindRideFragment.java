@@ -65,13 +65,13 @@ public class FindRideFragment extends Fragment {
             }
         });
 
+
         fbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent= new Intent(getContext(), NewRideActivity.class);
                 startActivity(intent);
-
 
             }
         });

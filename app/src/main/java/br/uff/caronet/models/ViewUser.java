@@ -13,7 +13,7 @@ public class ViewUser implements Parcelable {
 
     }
 
-    public ViewUser(String id, String name/*,String photo*/){
+    public ViewUser(String id, String name/*, String photo*/){
 
         this.id = id;
         this.name = name;

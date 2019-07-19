@@ -9,19 +9,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.util.ApiUtil;
+import com.google.firebase.storage.internal.Util;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import br.uff.caronet.R;
+import br.uff.caronet.adapters.RidesAdapter;
 import br.uff.caronet.dao.Dao;
+import br.uff.caronet.models.Car;
+import br.uff.caronet.models.Neighborhood;
+import br.uff.caronet.models.Ride;
+import br.uff.caronet.models.ViewUser;
 import br.uff.caronet.models.Zone;
 
 public class NewRideActivity extends AppCompatActivity {
@@ -29,20 +43,58 @@ public class NewRideActivity extends AppCompatActivity {
     private Spinner spZone;
     private Spinner spNeighborhood;
     private Spinner spCity;
+    private Spinner spSpots;
+    private Button btShareRide;
+    private Button btCancelRide;
     private List<String> zones = new ArrayList<>();
     private List<String> neighborhoods = new ArrayList<>();
     private List<String> cities = new ArrayList<>();
+    private Integer[] spotsList;
     private String city;
+    private String zone;
+    private String neighborhood;
+    private String campus;
+    private int spots;
     private ArrayAdapter<String> adapterZone;
     private ArrayAdapter<String> adapterNeighborhood;
     private ArrayAdapter<String> adapterCity;
+    private ArrayAdapter<Integer> adapterSpots;
+    private ToggleButton tgGoingToUff;
+    private ToggleButton tgLeavingUff;
+    private boolean isGoingToUff = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_ride);
 
-        initSpinners();
+        initVariables();
+
+        tgLeavingUff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    tgGoingToUff.setChecked(false);
+                }
+                else {
+                    tgGoingToUff.setChecked(true);
+                }
+                isGoingToUff = !isChecked;
+            }
+        });
+
+        tgGoingToUff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    tgLeavingUff.setChecked(false);
+                }
+                else {
+                    tgLeavingUff.setChecked(true);
+                }
+                isGoingToUff = isChecked;
+            }
+        });
 
         Dao.get().getCities()
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -95,6 +147,7 @@ public class NewRideActivity extends AppCompatActivity {
             public void onItemSelected(final AdapterView<?> parent, View view, int position, long id) {
 
                 Log.v("spZone Clicked", parent.getSelectedItem().toString());
+                zone = parent.getSelectedItem().toString();
 
                 Dao.get().getClZones()
                         .whereEqualTo("name",parent.getSelectedItem().toString())
@@ -120,13 +173,69 @@ public class NewRideActivity extends AppCompatActivity {
 
             }
         });
+
+        spNeighborhood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                neighborhood = parent.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spSpots.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spots = ((int) parent.getSelectedItem());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        btShareRide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Neighborhood neighborhoodObj = new Neighborhood(neighborhood,zone,city);
+                ViewUser driver = new ViewUser(Dao.get().getUId(), Dao.get().getUser().getName());
+
+
+                Ride ride = new Ride(driver, Calendar.getInstance().getTime(),isGoingToUff,"Praia Vermelha",neighborhoodObj,spots);
+                ride.setCar(Dao.get().getUser().getCar());
+                Dao.get().getClRides().add(ride);
+            }
+        });
+
     }
 
-    private void initSpinners() {
+    /*public Ride(ViewUser driver, Date departure, boolean goingToUff,
+                String campus, Neighborhood neighborhood, int spots) {*/
 
+
+        private void initVariables() {
+
+        tgGoingToUff = findViewById(R.id.tgGoingtoUff);
+        tgLeavingUff = findViewById(R.id.tgLeavingUff);
         spZone = findViewById(R.id.spZone);
         spNeighborhood = findViewById(R.id.spNeighborhood);
         spCity = findViewById(R.id.spCity);
+        spSpots = findViewById(R.id.spSpots);
+        btShareRide = findViewById(R.id.btShareRide);
+        btCancelRide = findViewById(R.id.btCancelRide);
+
+        spotsList = new Integer[] {1,2,3,4};
+
+        adapterSpots = new ArrayAdapter<>(
+                getApplication(),
+                R.layout.support_simple_spinner_dropdown_item,
+                spotsList
+        );
+        adapterSpots.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         adapterZone = new ArrayAdapter<>(
                 getApplicationContext(),
@@ -148,6 +257,7 @@ public class NewRideActivity extends AppCompatActivity {
                 cities
         );
 
+        spSpots.setAdapter(adapterSpots);
         spZone.setAdapter(adapterZone);
         spNeighborhood.setAdapter(adapterNeighborhood);
         spCity.setAdapter(adapterCity);

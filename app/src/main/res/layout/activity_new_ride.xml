@@ -7,6 +7,32 @@
     tools:context=".view.activities.NewRideActivity"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ToggleButton
+            android:id="@+id/tgGoingtoUff"
+            android:layout_width="120dp"
+            android:textOn="@string/going_to_uff"
+            android:textOff="@string/going_to_uff"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:checked="true"/>
+
+        <ToggleButton
+            android:id="@+id/tgLeavingUff"
+            android:textOn="@string/leaving_uff"
+            android:textOff="@string/leaving_uff"
+            android:layout_alignParentEnd="true"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:checked="false"/>
+
+    </RelativeLayout>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,12 +63,54 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/campus"/>
+    <Spinner
+        android:id="@+id/spCampus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/spots"/>
+    <Spinner
+        android:id="@+id/spSpots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"/>
+
+
+
     <EditText
         android:id="@+id/etRideDesc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:hint="@string/ride_description"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btShareRide"
+            android:text="@string/share_ride"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"/>
+
+        <Button
+            android:id="@+id/btCancelRide"
+            android:text="@string/cancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp" />
+    </RelativeLayout>
 
 
 </LinearLayout>

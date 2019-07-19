@@ -154,6 +154,7 @@ public class Ride implements Parcelable {
 
         dest.writeParcelable(driver, flags);
         dest.writeParcelable(neighborhood, flags);
+        dest.writeParcelable(car, flags);
         dest.writeTypedList(passengers);
         dest.writeInt (goingToUff ? 1 : 0);
         dest.writeString(campus);
@@ -166,6 +167,7 @@ public class Ride implements Parcelable {
 
         driver = in.readParcelable(ViewUser.class.getClassLoader());
         neighborhood = in.readParcelable(Neighborhood.class.getClassLoader());
+        car = in.readParcelable(Car.class.getClassLoader());
         passengers = new ArrayList<ViewUser>();
         in.readTypedList(passengers, ViewUser.CREATOR);
         goingToUff = (in.readInt() != 0);

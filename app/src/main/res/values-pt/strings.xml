@@ -26,4 +26,9 @@
     <string name="city">City</string>
     <string name="zone">Zone</string>
     <string name="neighborhood">Neighborhood</string>
+    <string name="spots">Spots</string>
+    <string name="campus">Campus</string>
+    <string name="going_to_uff">Going to UFF</string>
+    <string name="leaving_uff">Leaving UFF</string>
+    <string name="share_ride">Share Ride</string>
 </resources>
