@@ -46,11 +46,6 @@ public class ViewUser implements Parcelable {
 
 
 
-    /**Parceble Functions
-     *
-     * Used for moving an object from an activity/fragment to another.
-     */
-
     public ViewUser(Parcel in) {
         id = in.readString();
         name = in.readString();

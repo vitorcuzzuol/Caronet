@@ -1,9 +1,7 @@
 package br.uff.caronet.view.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -41,55 +37,37 @@ public class MainActivity extends AppCompatActivity {
         btLog = findViewById(R.id.btLog);
 
         //if user is already logged then get his attributes from db and store on a new User object
-        if (dao.getUserAuth() != null){
+        if (dao.getUserAuth() != null) {
             Log.v("user auth id: ", dao.getUId());
 
             DocumentReference userRef = dao.getClUsers().document(dao.getUId());
 
             //check if found the user from db
-            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()){
+            userRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
 
-                        //user is found on db
-                        DocumentSnapshot userRef = task.getResult();
+                    //user is found on db
+                    DocumentSnapshot userRef1 = task.getResult();
 
-                        //store data on created User object
-                        User user = userRef.toObject(User.class);
+                    //store data on created User object
+                    User user = userRef1.toObject(User.class);
 
-                        dao.setUser(user);
-                        Log.v("User auto-logged name: ", user.getName());
+                    dao.setUser(user);
+                    Log.v("User auto-logged name: ", user.getName());
 
-                        Intent intent = new Intent(MainActivity.this, RidesActivity.class);
-                        startActivity(intent);
-                    }
-                    else {
-                        Log.w("user could not get on db","...");
-                    }
+                    Intent intent = new Intent(MainActivity.this, RidesActivity.class);
+                    startActivity(intent);
+                } else {
+                    Log.w("user could not get on db", "...");
                 }
             });
         }
 
         //Called when Register button is clicked
-        btReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //show register dialog
-                showRegisterDialog();
-            }
-        });
+        btReg.setOnClickListener(v -> showRegisterDialog());
 
         //Called when Login button is clicked
-        btLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //show login dialog
-                showLoginDialog();
-            }
-        });
+        btLog.setOnClickListener(v -> showLoginDialog());
     }
 
 
@@ -106,28 +84,19 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setView(login_layout);
 
-        dialog.setPositiveButton(R.string.login, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        dialog.setPositiveButton(R.string.login, (dialog12, which) -> {
 
+            relativeLayout = findViewById(R.id.root_layout);
+            //validate
 
-                relativeLayout = findViewById(R.id.root_layout);
-                //validate
+            //sign in
+            dao.signIn(etEmail.getText().toString(),etPassword.getText().toString());
 
-                //sign in
-                dao.signIn(etEmail.getText().toString(),etPassword.getText().toString());
-
-                Intent intent = new Intent(MainActivity.this, RidesActivity.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(MainActivity.this, RidesActivity.class);
+            startActivity(intent);
         });
 
-        dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setNegativeButton(R.string.cancel, (dialog1, which) -> dialog1.dismiss());
 
         dialog.show();
     }
@@ -149,33 +118,25 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setView(register_layout);
 
-        dialog.setPositiveButton(R.string.register, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        dialog.setPositiveButton(R.string.register, (dialog1, which) -> {
 
-                //dialog.dismiss();
+            //dialog.dismiss();
 
-                relativeLayout = findViewById(R.id.root_layout);
-                //validate
+            relativeLayout = findViewById(R.id.root_layout);
+            //validate
 
-                Log.v("email: ", etEmail.getText().toString());
-                Log.v("name: ", etName.getText().toString());
+            Log.v("email: ", etEmail.getText().toString());
+            Log.v("name: ", etName.getText().toString());
 
-                //create an user auth
-                dao.regUser(etEmail.getText().toString(),
-                        etPassword.getText().toString(),
-                        etName.getText().toString(),
-                        swDriver.isChecked());
+            //create an user auth
+            dao.regUser(etEmail.getText().toString(),
+                    etPassword.getText().toString(),
+                    etName.getText().toString(),
+                    swDriver.isChecked());
 
-            }
         });
 
-        dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialog.setNegativeButton(R.string.cancel, (dialog12, which) -> dialog12.dismiss());
 
         dialog.show();
     }

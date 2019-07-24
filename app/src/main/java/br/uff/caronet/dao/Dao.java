@@ -100,39 +100,21 @@ public class Dao {
      */
     public void regUser(final String email, String pass, final String name, final boolean isDriver) {
         auth.createUserWithEmailAndPassword(email, pass)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
+                .addOnSuccessListener(authResult -> {
 
-                        Log.v("auth created!: ", auth.getUid());
+                    Log.v("auth created!: ", auth.getUid());
 
-                        //creating user Object and setting values typed on screen to store on db
-                        User user = new User(name, email, isDriver);
-                        user.setId(auth.getUid());
+                    //creating user Object and setting values typed on screen to store on db
+                    User user = new User(name, email, isDriver);
+                    user.setId(auth.getUid());
 
-                        //adding user on Firestore db with the same ID as Authenticator
-                        clUsers.document(auth.getUid()).set(user)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d("DocumentSnapshot written with ID: ",
-                                                clUsers.document(auth.getUid()).getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("Error adding document", e);
-                                    }
-                                });
-                    }
+                    //adding user on Firestore db with the same ID as Authenticator
+                    clUsers.document(auth.getUid()).set(user)
+                            .addOnSuccessListener(aVoid -> Log.d("DocumentSnapshot written with ID: ",
+                                    clUsers.document(auth.getUid()).getId()))
+                            .addOnFailureListener(e -> Log.w("Error adding document", e));
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("error auth", e);
-                    }
-                });
+                .addOnFailureListener(e -> Log.w("error auth", e));
     }
 
     /**
@@ -145,31 +127,22 @@ public class Dao {
     public void signIn (String email, String pass) {
 
         auth.signInWithEmailAndPassword(email,pass)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
+                .addOnSuccessListener(authResult -> {
 
-                        DocumentReference userRef = clUsers.document(authResult.getUser().getUid());
+                    DocumentReference userRef = clUsers.document(authResult.getUser().getUid());
 
-                        userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()){
-                                    DocumentSnapshot userRef = task.getResult();
+                    userRef.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()){
+                            DocumentSnapshot userRef1 = task.getResult();
 
-                                    User user = userRef.toObject(User.class);
-                                    Log.v("User Logged name: ", user.getName());
+                            User user = userRef1.toObject(User.class);
+                            Log.v("User Logged name: ", user.getName());
 
-                                }
-                            }
-                        });
-                    }
+                        }
+                    });
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                .addOnFailureListener(e -> {
 
-                    }
                 });
     }
 
@@ -240,15 +213,12 @@ public class Dao {
 
         clRides.document(rideId)
                 .update("passengers", FieldValue.arrayUnion(passenger))
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Utils.showToast(context, "Added on Ride!");
-                        }
-                        else{
-                            Utils.showToast(context, "error");
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        Utils.showToast(context, "Added on Ride!");
+                    }
+                    else{
+                        Utils.showToast(context, "error");
                     }
                 });
     }
