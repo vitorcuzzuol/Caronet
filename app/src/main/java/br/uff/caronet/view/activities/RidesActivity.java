@@ -1,14 +1,10 @@
 package br.uff.caronet.view.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import br.uff.caronet.view.fragments.ChatFragment;
 import br.uff.caronet.view.fragments.FindRideFragment;
 import br.uff.caronet.view.fragments.MyRidesFragment;
 
@@ -32,31 +28,29 @@ public class RidesActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
                 new FindRideFragment()).commit();
 
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListner =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            menuItem -> {
 
-                    Fragment fgSelected = null;
+                Fragment fgSelected = null;
 
-                    switch (menuItem.getItemId()){
-                        case R.id.itChat:
-                            fgSelected = new ChatFragment();
-                            break;
-                        case R.id.itMyRides:
-                            fgSelected = new MyRidesFragment();
-                            break;
-                        case R.id.itSearh:
-                            fgSelected = new FindRideFragment();
-                    }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
-                           fgSelected).commit();
-
-                    return true;
+                switch (menuItem.getItemId()){
+                   /* case R.id.itChat:
+                        fgSelected = new ChatFragment();
+                        break;*/
+                    case R.id.itMyRides:
+                        fgSelected = new MyRidesFragment();
+                        break;
+                    case R.id.itSearh:
+                        fgSelected = new FindRideFragment();
                 }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
+                       fgSelected).commit();
+
+                return true;
             };
 
     @Override

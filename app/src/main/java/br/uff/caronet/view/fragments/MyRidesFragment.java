@@ -47,9 +47,7 @@ public class MyRidesFragment extends Fragment {
 
         ridesAdapter.startListening();
 
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,25 +60,19 @@ public class MyRidesFragment extends Fragment {
         btDriver = view.findViewById(R.id.btDriver);
         btPassenger = view.findViewById(R.id.btPassenger);
 
-        btDriver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("btDriver: " ,"clicked!");
-                ridesAdapter.stopListening();
-                setUpRecycleView(true);
-                ridesAdapter.startListening();
+        btDriver.setOnClickListener(v -> {
+            Log.v("btDriver: " ,"clicked!");
+            ridesAdapter.stopListening();
+            setUpRecycleView(true);
+            ridesAdapter.startListening();
 
-            }
         });
 
-        btPassenger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("btPassenger: " ,"clicked!");
-                ridesAdapter.stopListening();
-                setUpRecycleView(false);
-                ridesAdapter.startListening();
-            }
+        btPassenger.setOnClickListener(v -> {
+            Log.v("btPassenger: " ,"clicked!");
+            ridesAdapter.stopListening();
+            setUpRecycleView(false);
+            ridesAdapter.startListening();
         });
 
         setUpRecycleView(false);

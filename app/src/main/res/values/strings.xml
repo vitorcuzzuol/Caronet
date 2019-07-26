@@ -31,4 +31,8 @@
     <string name="going_to_uff">Going to UFF</string>
     <string name="leaving_uff">Leaving UFF</string>
     <string name="share_ride">Share Ride</string>
+    <string name="gender">Gender</string>
+    <string name="car_plate">Car plate</string>
+    <string name="car_model">Car model</string>
+    <string name="phone_number">Phone number</string>
 </resources>

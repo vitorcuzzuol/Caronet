@@ -52,28 +52,23 @@ public class FindRideFragment extends Fragment {
 
         ridesAdapter.startListening();
 
-        ridesAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, Ride ride, String id) {
-                Log.v("item view clicked!", id);
+        ridesAdapter.setOnItemClickListener((view, ride, id) -> {
 
-                Intent intent = new Intent(getContext(), RideDetail.class);
-                intent.putExtra("ride", ride);
-                intent.putExtra("id", id);
-                startActivity(intent);
+            Log.v("item view clicked!", id);
 
-            }
+            Intent intent = new Intent(getContext(), RideDetail.class);
+            intent.putExtra("ride", ride);
+            intent.putExtra("id", id);
+            startActivity(intent);
+
         });
 
 
-        fbButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        fbButton.setOnClickListener(v -> {
 
-                Intent intent= new Intent(getContext(), NewRideActivity.class);
-                startActivity(intent);
+            Intent intent= new Intent(getContext(), NewRideActivity.class);
+            startActivity(intent);
 
-            }
         });
     }
 

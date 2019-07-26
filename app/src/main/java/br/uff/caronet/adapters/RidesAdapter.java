@@ -52,13 +52,10 @@ public class RidesAdapter extends FirestoreRecyclerAdapter <Ride, RidesAdapter.V
         holder.tvDeparture.setText(departure);
         holder.tvArrival.setText(arrival);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.itemView.setOnClickListener(v -> {
 
-                if  (mListener != null){
-                    mListener.onItemClick(v, model, getSnapshots().getSnapshot(position).getId());
-                }
+            if  (mListener != null){
+                mListener.onItemClick(v, model, getSnapshots().getSnapshot(position).getId());
             }
         });
 

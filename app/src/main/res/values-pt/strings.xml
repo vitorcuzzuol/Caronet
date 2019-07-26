@@ -22,13 +22,16 @@
     <string name="goingfrom">Indo de: </string>
     <string name="to">Para: </string>
     <string name="passenger">Passageiro</string>
-    <string name="ride_description">Route, Reference point...</string>
-    <string name="city">City</string>
-    <string name="zone">Zone</string>
-    <string name="neighborhood">Neighborhood</string>
-    <string name="spots">Spots</string>
+    <string name="ride_description">Rota, pontos de referencia...</string>
+    <string name="city">Cidade</string>
+    <string name="zone">Zona</string>
+    <string name="neighborhood">Bairro</string>
+    <string name="spots">Lugares</string>
     <string name="campus">Campus</string>
-    <string name="going_to_uff">Going to UFF</string>
-    <string name="leaving_uff">Leaving UFF</string>
-    <string name="share_ride">Share Ride</string>
+    <string name="going_to_uff">Indo para UFF</string>
+    <string name="leaving_uff">Saido da UFF</string>
+    <string name="share_ride">Confirmar Corrida</string>
+    <string name="car_plate">Car plate</string>
+    <string name="car_model">Car model</string>
+    <string name="phone_number">Phone number</string>
 </resources>

@@ -161,6 +161,7 @@ public class NewRideActivity extends AppCompatActivity {
         });
 
         btShareRide.setOnClickListener(v -> {
+
             Neighborhood neighborhoodObj = new Neighborhood(neighborhood,zone,city);
             ViewUser driver = new ViewUser(Dao.get().getUId(), Dao.get().getUser().getName());
 
@@ -172,11 +173,7 @@ public class NewRideActivity extends AppCompatActivity {
             Dao.get().getClRides().add(ride);
         });
 
-        btCancelRide.setOnClickListener( v -> {
-            
-        });
-
-
+        btCancelRide.setOnClickListener( v -> onBackPressed());
 
     }
 
