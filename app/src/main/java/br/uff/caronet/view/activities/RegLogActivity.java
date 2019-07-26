@@ -67,6 +67,7 @@ public class RegLogActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, RidesActivity.class);
             startActivity(intent);
+            finish();
         });
 
         dialog.setNegativeButton(R.string.cancel, (dialog1, which) -> dialog1.dismiss());
@@ -108,6 +109,9 @@ public class RegLogActivity extends AppCompatActivity {
                     swDriver.isChecked());
 
         });
+        Intent intent = new Intent(this, RidesActivity.class);
+        startActivity(intent);
+        finish();
 
         dialog.setNegativeButton(R.string.cancel, (dialog12, which) -> dialog12.dismiss());
 
