@@ -13,7 +13,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
+import br.uff.caronet.dao.Dao;
 import br.uff.caronet.view.fragments.FindRideFragment;
 import br.uff.caronet.view.fragments.MyRidesFragment;
 
@@ -25,6 +27,8 @@ public class RidesActivity extends AppCompatActivity {
     Toolbar tbMenu;
     DrawerLayout dlRides;
     FloatingActionButton fbButton;
+    NavigationView nvMenu;
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +37,14 @@ public class RidesActivity extends AppCompatActivity {
 
         initVariables();
 
-        fbButton.setOnClickListener(v -> {
-
-            Intent intent= new Intent(this, NewRideActivity.class);
-            startActivity(intent);
-
-        });
-
-    }
-
-    private void initVariables() {
-
-        dlRides = findViewById(R.id.ltRides);
-        tbMenu = findViewById(R.id.tbMenu);
-        fbButton = findViewById(R.id.floatingab);
-
         setSupportActionBar(tbMenu);
+
+        bottomNav.setSelectedItemId(R.id.itSearh);
+
+        bottomNav.setOnNavigationItemSelectedListener(navListner);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
+                new FindRideFragment()).commit();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -59,18 +55,53 @@ public class RidesActivity extends AppCompatActivity {
         );
         toggle.syncState();
 
-        dlRides.addDrawerListener(toggle);
+        fbButton.setOnClickListener(v -> {
 
-        BottomNavigationView bottomNav = findViewById(R.id.nvBottomnav);
+            if (Dao.get().getUser().isDriver()){
+                //TODO
+            }
 
-        bottomNav.setSelectedItemId(R.id.itSearh);
+            Intent intent= new Intent(this, NewRideActivity.class);
+            startActivity(intent);
 
-        bottomNav.setOnNavigationItemSelectedListener(navListner);
+        });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_home,
-                new FindRideFragment()).commit();
+        nvMenu.setNavigationItemSelectedListener(menuItem -> {
+            Intent intent;
+
+            switch (menuItem.getItemId()){
+
+                case R.id.itEditProfile:
+                    intent = new Intent(this,ProfileActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case R.id.itUseTherms:
+                    intent = new Intent(this,TermsOfUseActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case R.id.itLogout:
+                    break;
+            }
+
+            dlRides.closeDrawer(GravityCompat.START);
+            return true;
+        });
 
     }
+
+    private void initVariables() {
+
+        dlRides = findViewById(R.id.ltRides);
+        tbMenu = findViewById(R.id.tbMenu);
+        fbButton = findViewById(R.id.floatingab);
+        nvMenu = findViewById(R.id.nvProfile);
+        bottomNav = findViewById(R.id.nvBottomnav);
+
+
+    }
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListner =
             menuItem -> {
