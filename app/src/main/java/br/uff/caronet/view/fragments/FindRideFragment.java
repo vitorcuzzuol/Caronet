@@ -32,7 +32,6 @@ public class FindRideFragment extends Fragment {
     private Dao dao;
     private RidesAdapter ridesAdapter;
     private RecyclerView rvRides;
-    private FloatingActionButton fbButton;
 
     public FindRideFragment() {
         // Required empty public constructor
@@ -63,13 +62,6 @@ public class FindRideFragment extends Fragment {
 
         });
 
-
-        fbButton.setOnClickListener(v -> {
-
-            Intent intent= new Intent(getContext(), NewRideActivity.class);
-            startActivity(intent);
-
-        });
     }
 
 
@@ -80,7 +72,6 @@ public class FindRideFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_find_ride, container, false);
 
         rvRides = view.findViewById(R.id.rvRides);
-        fbButton = view.findViewById(R.id.floatingab);
 
         setUpRecycleView();
 

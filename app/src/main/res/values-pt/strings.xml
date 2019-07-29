@@ -34,4 +34,8 @@
     <string name="car_plate">Car plate</string>
     <string name="car_model">Car model</string>
     <string name="phone_number">Phone number</string>
+    <string name="confirm">Confirm</string>
+    <string name="gender">Sexo</string>
+    <string name="open_menu">Open Menu</string>
+    <string name="close_menu">Close Menu</string>
 </resources>

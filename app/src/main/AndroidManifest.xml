@@ -14,7 +14,8 @@
         <activity android:name=".view.activities.RideDetail" />
         <activity android:name=".view.activities.MyRidesActivity" />
         <activity android:name=".view.activities.ProfileActivity" />
-        <activity android:name=".view.activities.RidesActivity" />
+        <activity android:name=".view.activities.RidesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.activities.ChatActivity" />
         <activity android:name=".view.activities.LoginActivity" />
         <activity android:name=".view.activities.RegisterActivity" />

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import br.uff.caronet.R;
 import br.uff.caronet.dao.Dao;
@@ -13,6 +16,8 @@ import br.uff.caronet.models.ViewUser;
 public class RideDetail extends AppCompatActivity {
 
     private Dao dao = Dao.get();
+    private Button btConfirm, btCancel;
+    private TextView tvDriverName, tvSpots, tvDeparture, tvArrival, tvCampus, tvDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +32,40 @@ public class RideDetail extends AppCompatActivity {
 
         showRideOnlog(ride);
 
-        /*ViewUser user = new ViewUser(
-                dao.getUId(),
-                dao.getUser().getName()
-        );
+        initVariables();
 
-        dao.addPassenger(getApplicationContext(),id,user);*/
+        rideToTextView(ride);
+
+        btCancel.setOnClickListener( v -> onBackPressed());
+
+        btConfirm.setOnClickListener(v -> {
+
+            ViewUser user = new ViewUser(dao.getUId(), dao.getUser().getName());
+            dao.addPassenger(getApplicationContext(),id,user);
+        });
+    }
+
+    private void rideToTextView(Ride ride) {
+
+        tvArrival.setText( ride.getDriver().getName());
+        //tvCampus.setText( ride.getCampus());
+        tvDeparture.setText( ride.getDeparture().toString());
+        tvDriverName.setText( ride.getDriver().getName());
+        tvSpots.setText( ride.getSpots());
+        tvDescription.setText( ride.getDescription());
+
+    }
+
+    private void initVariables() {
+        tvArrival = findViewById(R.id.tvArrival);
+        tvCampus = findViewById(R.id.tvCampus);
+        tvDeparture= findViewById(R.id.tvDeparture);
+        tvDriverName= findViewById(R.id.tvDriverName);
+        tvSpots= findViewById(R.id.tvSpots);
+        tvDescription = findViewById(R.id.tvDescription);
+
+        btConfirm = findViewById(R.id.btConfirm);
+        btCancel =findViewById(R.id.btCancelRide);
     }
 
     private void showRideOnlog(Ride ride) {
@@ -40,7 +73,9 @@ public class RideDetail extends AppCompatActivity {
             Log.v("ride: ",
                     ride.getCampus()
                             + ride.isGoingToUff()
-                            + ride.getNeighborhood()
+                            + ride.getNeighborhood().getCity()
+                            + ride.getNeighborhood().getName()
+                            + ride.getNeighborhood().getZone()
                             + ride.getDeparture()
             );
             if (ride.getDriver() != null) {
