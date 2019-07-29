@@ -16,7 +16,6 @@ import br.uff.caronet.models.ViewUser;
 public class RideDetail extends AppCompatActivity {
 
     private Dao dao = Dao.get();
-    private Button btConfirm, btCancel;
     private TextView tvDriverName, tvSpots, tvDeparture, tvArrival, tvCampus, tvDescription;
 
     @Override
@@ -36,9 +35,11 @@ public class RideDetail extends AppCompatActivity {
 
         rideToTextView(ride);
 
-        btCancel.setOnClickListener( v -> onBackPressed());
 
-        btConfirm.setOnClickListener(v -> {
+        // Button Click
+        findViewById(R.id.btCancelRide).setOnClickListener( v -> onBackPressed());
+
+        findViewById(R.id.btConfirm).setOnClickListener(v -> {
 
             ViewUser user = new ViewUser(dao.getUId(), dao.getUser().getName());
             dao.addPassenger(getApplicationContext(),id,user);
@@ -64,8 +65,6 @@ public class RideDetail extends AppCompatActivity {
         tvSpots= findViewById(R.id.tvSpots);
         tvDescription = findViewById(R.id.tvDescription);
 
-        btConfirm = findViewById(R.id.btConfirm);
-        btCancel =findViewById(R.id.btCancelRide);
     }
 
     private void showRideOnlog(Ride ride) {

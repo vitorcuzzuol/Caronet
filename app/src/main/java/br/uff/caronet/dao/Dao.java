@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import br.uff.caronet.R;
 import br.uff.caronet.util.Utils;
 import br.uff.caronet.models.Ride;
 import br.uff.caronet.models.User;
@@ -28,7 +31,15 @@ public class Dao {
     private CollectionReference clZones;
     private CollectionReference clCities;
     private User user;
+    private GoogleSignInClient gcClient;
 
+    public GoogleSignInClient getGcClient() {
+        return gcClient;
+    }
+
+    public void setGcClient(GoogleSignInClient gcClient) {
+        this.gcClient = gcClient;
+    }
 
     private Dao(){
 
@@ -99,7 +110,7 @@ public class Dao {
                     Log.v("auth created!: ", auth.getUid());
 
                     //creating user Object and setting values typed on screen to store on db
-                    User user = new User(name, email, isDriver);
+                    User user = new User(auth.getUid(), name, email, isDriver, "234");
                     user.setId(auth.getUid());
 
                     //adding user on Firestore db with the same ID as Authenticator
@@ -136,6 +147,7 @@ public class Dao {
                     });
                 })
                 .addOnFailureListener(e -> {
+                    Log.v("LOGIN: ", "FAIL");
 
                 });
     }
@@ -215,6 +227,12 @@ public class Dao {
                         Utils.showToast(context, "error");
                     }
                 });
+    }
+
+    public void logOut (){
+
+        auth.signOut();
+        gcClient.signOut();
     }
 
 }

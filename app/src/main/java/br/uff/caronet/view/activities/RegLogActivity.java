@@ -10,26 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import br.uff.caronet.R;
 import br.uff.caronet.dao.Dao;
-import br.uff.caronet.models.User;
 
 public class RegLogActivity extends AppCompatActivity {
 
     Button btReg, btLog;
     Dao dao;
-    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_reg_log);
 
         dao = Dao.get();
 
@@ -59,9 +54,6 @@ public class RegLogActivity extends AppCompatActivity {
 
         dialog.setPositiveButton(R.string.login, (dialog12, which) -> {
 
-            relativeLayout = findViewById(R.id.root_layout);
-            //validate
-
             //sign in
             dao.signIn(etEmail.getText().toString(),etPassword.getText().toString());
 
@@ -85,7 +77,7 @@ public class RegLogActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View register_layout = layoutInflater.inflate(R.layout.layout_register, null);
 
-        final EditText etName = register_layout.findViewById(R.id.etName);
+        //final EditText etName = register_layout.findViewById(R.id.etName);
         final EditText etEmail = register_layout.findViewById(R.id.etEmail);
         final EditText etPassword = register_layout.findViewById(R.id.etPassword);
         final Switch swDriver = register_layout.findViewById(R.id.swDriver);
@@ -94,18 +86,13 @@ public class RegLogActivity extends AppCompatActivity {
 
         dialog.setPositiveButton(R.string.register, (dialog1, which) -> {
 
-            //dialog.dismiss();
-
-            relativeLayout = findViewById(R.id.root_layout);
-            //validate
-
             Log.v("email: ", etEmail.getText().toString());
-            Log.v("name: ", etName.getText().toString());
+            //Log.v("name: ", etName.getText().toString());
 
             //create an user auth
             dao.regUser(etEmail.getText().toString(),
                     etPassword.getText().toString(),
-                    etName.getText().toString(),
+                    "name",
                     swDriver.isChecked());
 
         });

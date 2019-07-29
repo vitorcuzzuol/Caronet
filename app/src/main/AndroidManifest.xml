@@ -11,7 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activities.TermsOfUseActivity"></activity>
+        <activity android:name=".view.activities.GoogleSignInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activities.BaseActivity" />
+        <activity android:name=".view.activities.TermsOfUseActivity" />
         <activity android:name=".view.activities.RegLogActivity" />
         <activity android:name=".view.activities.NewRideActivity" />
         <activity android:name=".view.activities.RideDetail" />
@@ -24,11 +32,7 @@
         <activity android:name=".view.activities.LoginActivity" />
         <activity android:name=".view.activities.RegisterActivity" />
         <activity android:name=".view.activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

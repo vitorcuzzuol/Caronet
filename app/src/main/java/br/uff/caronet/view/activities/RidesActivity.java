@@ -1,10 +1,15 @@
 package br.uff.caronet.view.activities;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 
 import androidx.appcompat.widget.Toolbar;
@@ -58,7 +63,7 @@ public class RidesActivity extends AppCompatActivity {
         fbButton.setOnClickListener(v -> {
 
             if (Dao.get().getUser().isDriver()){
-                //TODO
+
             }
 
             Intent intent= new Intent(this, NewRideActivity.class);
@@ -82,6 +87,7 @@ public class RidesActivity extends AppCompatActivity {
                     break;
 
                 case R.id.itLogout:
+                    showDialogLogout();
                     break;
             }
 
@@ -91,6 +97,24 @@ public class RidesActivity extends AppCompatActivity {
 
     }
 
+    private void showDialogLogout() {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage(R.string.logout_text)
+                .setPositiveButton(R.string.confirm, (dialog1, which) -> logOut())
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+
+    }
+
+    private void logOut() {
+        Dao.get().logOut();
+        Intent intent = new Intent(this, GoogleSignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     private void initVariables() {
 
         dlRides = findViewById(R.id.ltRides);
@@ -98,7 +122,6 @@ public class RidesActivity extends AppCompatActivity {
         fbButton = findViewById(R.id.floatingab);
         nvMenu = findViewById(R.id.nvProfile);
         bottomNav = findViewById(R.id.nvBottomnav);
-
 
     }
 
