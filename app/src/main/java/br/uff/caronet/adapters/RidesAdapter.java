@@ -3,6 +3,8 @@ package br.uff.caronet.adapters;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,52 +15,65 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import br.uff.caronet.R;
 import br.uff.caronet.common.OnItemClickListener;
-import br.uff.caronet.models.Ride;
+import br.uff.caronet.dao.Dao;
+import br.uff.caronet.model.Ride;
 
 public class RidesAdapter extends FirestoreRecyclerAdapter <Ride, RidesAdapter.ViewHolderRides>{
 
     public OnItemClickListener mListener;
     private boolean isSearching;
+    private Context context;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
 
         mListener = listener;
     }
 
-    public RidesAdapter(@NonNull FirestoreRecyclerOptions<Ride> options, boolean isSearching) {
+    public RidesAdapter(@NonNull FirestoreRecyclerOptions<Ride> options, boolean isSearching, Context context) {
         super(options);
         this.isSearching = isSearching;
+        this.context = context;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolderRides holder, final int position, @NonNull final Ride model) {
-
-
-        String departure = "De: ";
-        String arrival = "Para: ";
-
-        if (model.isGoingToUff()){
-            departure += model.getNeighborhood().getName();
-            arrival += model.getCampus();
+        if (Dao.get().getUId().equals(model.getDriver().getId()) && isSearching){
+            hideView(holder);
         }
         else {
-            departure += model.getCampus();
-            arrival += model.getNeighborhood().getName();
-        }
+            String departure = context.getString(R.string.from);
+            String arrival = context.getString(R.string.to);
 
 
-        holder.tvName.setText(model.getDriver().getName());
-        holder.tvDate.setText(model.getDeparture().toString());
-        holder.tvDeparture.setText(departure);
-        holder.tvArrival.setText(arrival);
-
-        holder.itemView.setOnClickListener(v -> {
-
-            if  (mListener != null){
-                mListener.onItemClick(v, model, getSnapshots().getSnapshot(position).getId());
+            if (model.isGoingToUff()){
+                departure += model.getNeighborhood().getName();
+                arrival += model.getCampus();
             }
-        });
+            else {
+                departure += model.getCampus();
+                arrival += model.getNeighborhood().getName();
+            }
 
+
+            holder.tvName.setText(model.getDriver().getName());
+            holder.tvDate.setText(model.getDeparture().toString());
+            holder.tvDeparture.setText(departure);
+            holder.tvArrival.setText(arrival);
+
+            holder.itemView.setOnClickListener(v -> {
+
+                if  (mListener != null){
+                    mListener.onItemClick(v, model, getSnapshots().getSnapshot(position).getId());
+                }
+            });
+
+        }
+    }
+
+    private void hideView(ViewHolderRides holder) {
+
+        holder.itemView.setVisibility(View.GONE);
+        holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
     }
 
     @NonNull

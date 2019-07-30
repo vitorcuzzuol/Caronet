@@ -4,21 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import java.util.Arrays;
+
 import br.uff.caronet.R;
+import br.uff.caronet.controller.UserController;
 import br.uff.caronet.dao.Dao;
-import br.uff.caronet.models.Car;
-import br.uff.caronet.models.User;
+import br.uff.caronet.model.Car;
+import br.uff.caronet.model.User;
 import br.uff.caronet.util.Utils;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Switch swDriver;
     private EditText etCarModel, etCarPlate, etPhone;
+    private UserController userController = new UserController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 hideCarDetail();
             }
         });
-
     }
 
     private void hideCarDetail() {
@@ -63,17 +66,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         switch (i){
             case R.id.btConfirmReg:
-                if (isValid()) regUser();
-                Intent intent = new Intent(this, RidesActivity.class);
-                startActivity(intent);
+                if (isValid()) {
+                    regUser();
+                    Intent intent = new Intent(this, RidesActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
             case R.id.btCancelReg:
+                Dao.get().logOut();
                 onBackPressed();
                 break;
         }
     }
 
     private void regUser() {
+
+        // Set user detail on new object
         User user = new User(
                 Dao.get().getUId(),
                 Dao.get().getUserAuth().getDisplayName(),
@@ -81,15 +90,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 swDriver.isChecked(),
                 etPhone.getText().toString()
         );
+        // If is a driver, set the car on user
         if (swDriver.isChecked()) user.setCar(new Car(
                 etCarPlate.getText().toString(),
                 etCarModel.getText().toString()));
 
-        Dao.get().getClUsers().document(user.getId()).set(user);
+        // Add user on DB
+        userController.registerUser(user);
     }
 
     public boolean isValid (){
 
+        // Set variables
         String phone = etPhone.getText().toString();
         String carPlate = etCarPlate.getText().toString();
         String carModel = etCarModel.getText().toString();
@@ -100,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
 
-        // Validate car details
+        // Validate car detail
         if (swDriver.isChecked()) {
             if (carModel == null){
                 Utils.showToast(this, "Preencha o modelo do carro!");

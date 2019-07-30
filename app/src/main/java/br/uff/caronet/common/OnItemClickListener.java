@@ -2,7 +2,7 @@ package br.uff.caronet.common;
 
 import android.view.View;
 
-import br.uff.caronet.models.Ride;
+import br.uff.caronet.model.Ride;
 
 public interface OnItemClickListener {
 

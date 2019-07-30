@@ -1,4 +1,4 @@
-package br.uff.caronet.models;
+package br.uff.caronet.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -44,7 +44,14 @@ public class ViewUser implements Parcelable {
         this.photo = photo;
     }
 
-
+    @Override
+    public String toString() {
+        return "ViewUser{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
 
     public ViewUser(Parcel in) {
         id = in.readString();

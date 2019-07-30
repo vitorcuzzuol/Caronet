@@ -6,7 +6,6 @@ import android.util.Log;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -16,20 +15,16 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import br.uff.caronet.R;
 import br.uff.caronet.util.Utils;
-import br.uff.caronet.models.Ride;
-import br.uff.caronet.models.User;
-import br.uff.caronet.models.ViewUser;
+import br.uff.caronet.model.Ride;
+import br.uff.caronet.model.User;
+import br.uff.caronet.model.ViewUser;
 
 public class Dao {
 
     private FirebaseFirestore db;
     private FirebaseAuth auth;
-    private CollectionReference clUsers;
-    private CollectionReference clRides;
-    private CollectionReference clZones;
-    private CollectionReference clCities;
+    private CollectionReference clUsers, clRides, clZones, clCities, clCampi;
     private User user;
     private GoogleSignInClient gcClient;
 
@@ -49,6 +44,7 @@ public class Dao {
         this.clRides = db.collection("Rides");
         this.clZones = db.collection("Zones");
         this.clCities = db.collection("Cities");
+        this.clCampi = db.collection("Campi");
     }
 
 
@@ -213,6 +209,14 @@ public class Dao {
 
     public CollectionReference getCities() {
         return clCities;
+    }
+
+    public CollectionReference getClCampi() {
+        return clCampi;
+    }
+
+    public void setClCampi(CollectionReference clCampi) {
+        this.clCampi = clCampi;
     }
 
     public void addPassenger(final Context context, String rideId, ViewUser passenger){

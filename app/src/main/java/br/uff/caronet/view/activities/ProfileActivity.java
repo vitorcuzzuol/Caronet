@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
-import br.uff.caronet.models.User;
+import br.uff.caronet.model.User;
 
 public class ProfileActivity extends AppCompatActivity {
 

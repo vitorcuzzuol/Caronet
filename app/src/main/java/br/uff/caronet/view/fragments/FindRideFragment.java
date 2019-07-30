@@ -12,19 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.uff.caronet.dao.Dao;
-import br.uff.caronet.util.Utils;
-import br.uff.caronet.view.activities.NewRideActivity;
 import br.uff.caronet.view.activities.RideDetail;
-import br.uff.caronet.common.OnItemClickListener;
 import br.uff.caronet.R;
 import br.uff.caronet.adapters.RidesAdapter;
-import br.uff.caronet.models.Ride;
+import br.uff.caronet.model.Ride;
 
 
 public class FindRideFragment extends Fragment {
@@ -83,7 +78,7 @@ public class FindRideFragment extends Fragment {
         FirestoreRecyclerOptions<Ride> opRides;
         opRides = dao.setOpRides(dao.getClRides());
 
-        ridesAdapter = new RidesAdapter(opRides, true);
+        ridesAdapter = new RidesAdapter(opRides, true, getContext());
 
         rvRides.setHasFixedSize(true);
         rvRides.setLayoutManager(new LinearLayoutManager(getContext()));

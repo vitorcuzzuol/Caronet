@@ -1,4 +1,4 @@
-package br.uff.caronet.models;
+package br.uff.caronet.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -43,7 +43,14 @@ public class Neighborhood implements Parcelable {
         this.city = city;
     }
 
-
+    @Override
+    public String toString() {
+        return "Neighborhood{" +
+                "name='" + name + '\'' +
+                ", zone='" + zone + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
 
     protected Neighborhood(Parcel in) {
         name = in.readString();

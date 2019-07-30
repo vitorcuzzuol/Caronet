@@ -1,4 +1,4 @@
-package br.uff.caronet.models;
+package br.uff.caronet.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -128,7 +128,21 @@ public class Ride implements Parcelable {
         this.car = car;
     }
 
-
+    @Override
+    public String toString() {
+        return "Ride{" +
+                "id='" + id + '\'' +
+                ", driver=" + driver +
+                ", neighborhood=" + neighborhood +
+                ", passengers=" + passengers +
+                ", goingToUff=" + goingToUff +
+                ", departure=" + departure +
+                ", campus='" + campus + '\'' +
+                ", spots=" + spots +
+                ", description='" + description + '\'' +
+                ", car=" + car +
+                '}';
+    }
 
     //Used for moving an object from an activity/fragment to another.
 

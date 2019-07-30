@@ -1,4 +1,4 @@
-package br.uff.caronet.models;
+package br.uff.caronet.model;
 
 import java.util.List;
 

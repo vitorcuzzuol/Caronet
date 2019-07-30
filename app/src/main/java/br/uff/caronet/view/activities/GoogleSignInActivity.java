@@ -24,7 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import br.uff.caronet.R;
 import br.uff.caronet.dao.Dao;
-import br.uff.caronet.models.User;
+import br.uff.caronet.model.User;
 
 
 public class GoogleSignInActivity extends BaseActivity implements View.OnClickListener {
@@ -80,6 +80,7 @@ public class GoogleSignInActivity extends BaseActivity implements View.OnClickLi
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null)checkRegistered(currentUser);
         updateUI(currentUser);
+
     }
     // [END on_start_check_user]
 

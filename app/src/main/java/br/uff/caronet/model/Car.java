@@ -1,4 +1,4 @@
-package br.uff.caronet.models;
+package br.uff.caronet.model;
 
 
 import android.os.Parcel;
@@ -35,6 +35,13 @@ public class Car implements Parcelable {
         this.model = model;
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "plate='" + plate + '\'' +
+                ", model='" + model + '\'' +
+                '}';
+    }
 
     protected Car(Parcel in) {
         plate = in.readString();

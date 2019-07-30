@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -18,17 +19,14 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
 import br.uff.caronet.adapters.RidesAdapter;
-import br.uff.caronet.models.Ride;
+import br.uff.caronet.model.Ride;
 
 
-public class MyRidesFragment extends Fragment {
-
+public class MyRidesFragment extends Fragment implements View.OnClickListener {
 
     private Dao dao;
     private RidesAdapter ridesAdapter;
     private RecyclerView rvRides;
-    private Button btDriver;
-    private Button btPassenger;
 
     public MyRidesFragment() {
         // Required empty public constructor
@@ -55,38 +53,24 @@ public class MyRidesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_rides, container, false);
 
+        // Views
         rvRides = view.findViewById(R.id.rvRides);
 
-        btDriver = view.findViewById(R.id.btDriver);
-        btPassenger = view.findViewById(R.id.btPassenger);
-
-        btDriver.setOnClickListener(v -> {
-            Log.v("btDriver: " ,"clicked!");
-            ridesAdapter.stopListening();
-            setUpRecycleView(true);
-            ridesAdapter.startListening();
-
-        });
-
-        btPassenger.setOnClickListener(v -> {
-            Log.v("btPassenger: " ,"clicked!");
-            ridesAdapter.stopListening();
-            setUpRecycleView(false);
-            ridesAdapter.startListening();
-        });
+        // Button listeners
+        view.findViewById(R.id.btDriver).setOnClickListener(this);
+        view.findViewById(R.id.btPassenger).setOnClickListener(this);
 
         setUpRecycleView(false);
 
         return view;
     }
 
-
     private void setUpRecycleView(boolean isDriver) {
 
         FirestoreRecyclerOptions<Ride> opRides;
         opRides = dao.setOpMyRides(dao.getClRides(), isDriver);
 
-        ridesAdapter = new RidesAdapter(opRides, false);
+        ridesAdapter = new RidesAdapter(opRides, false, getContext());
 
         rvRides.setHasFixedSize(true);
         rvRides.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -100,4 +84,22 @@ public class MyRidesFragment extends Fragment {
         ridesAdapter.stopListening();
     }
 
+    @Override
+    public void onClick(View v) {
+        // Clicked on Passenger
+        if (v.getId() == R.id.btPassenger ){
+            Log.v("btPassenger: " ,"clicked!");
+            ridesAdapter.stopListening();
+            setUpRecycleView(false);
+            ridesAdapter.startListening();
+        }
+        // Clicked on Driver
+        else if (v.getId() == R.id.btDriver) {
+            Log.v("btDriver: " ,"clicked!");
+            ridesAdapter.stopListening();
+            setUpRecycleView(true);
+            ridesAdapter.startListening();
+        }
+
+    }
 }

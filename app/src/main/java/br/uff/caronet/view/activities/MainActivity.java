@@ -2,23 +2,17 @@ package br.uff.caronet.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.R;
-import br.uff.caronet.models.User;
+import br.uff.caronet.model.User;
 
 
 public class MainActivity extends AppCompatActivity {
