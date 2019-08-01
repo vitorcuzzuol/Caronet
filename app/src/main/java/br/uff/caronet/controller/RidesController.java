@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.uff.caronet.dao.Dao;
+import br.uff.caronet.model.Car;
 import br.uff.caronet.model.Ride;
 import br.uff.caronet.model.User;
 import br.uff.caronet.model.ViewUser;
@@ -53,5 +54,10 @@ public class RidesController {
             }
         });
     }
+
+    public void addRide(Ride ride) {
+        dao.getClRides().add(ride);
+    }
+
 
 }

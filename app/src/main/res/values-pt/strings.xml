@@ -31,13 +31,13 @@
     <string name="going_to_uff">Indo para UFF</string>
     <string name="leaving_uff">Saido da UFF</string>
     <string name="share_ride">Confirmar Corrida</string>
-    <string name="car_plate">Car plate</string>
-    <string name="car_model">Car model</string>
-    <string name="phone_number">Phone number</string>
+    <string name="car_plate">Placa</string>
+    <string name="car_model">Modelo</string>
+    <string name="phone_number">Número telefone</string>
     <string name="confirm">Confirmar</string>
     <string name="gender">Sexo</string>
-    <string name="open_menu">Open Menu</string>
-    <string name="close_menu">Close Menu</string>
+    <string name="open_menu">Abrir Menu</string>
+    <string name="close_menu">Fichar Menu</string>
     <string name="logout_text">Deseja deslogar do aplicativo?</string>>
 
 
@@ -132,7 +132,7 @@
     <string name="email_fmt">Email: %s</string>
     <string name="register_a_car">Cadastre um carro primeiro!</string>
     <string name="from">De: </string>
-    <string name="set_date">Set Date</string>
+    <string name="set_date">Data</string>
     <string name="set_time">Set Time</string>
-    <string name="confirm_ride">Confirm ride?</string>
+    <string name="confirm_ride">Confirma corona?</string>
 </resources>
