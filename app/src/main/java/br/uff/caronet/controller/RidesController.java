@@ -3,6 +3,8 @@ package br.uff.caronet.controller;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -10,9 +12,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Supplier;
+
 
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.model.Car;
@@ -39,6 +41,7 @@ public class RidesController {
                     ride.setSpots(ride.getSpots() - 1);
                     ViewUser user = new ViewUser(dao.getUId(),dao.getUser().getName());
 
+
                     Log.v("TAG",user.getId() + user.getName());
                     if (ride.getPassengers() == null) ride.setPassengers(new ArrayList<>());
                     ride.getPassengers().add(user);
@@ -59,5 +62,8 @@ public class RidesController {
         dao.getClRides().add(ride);
     }
 
+    public Task<DocumentSnapshot> getRideById (String id) {
+        return  dao.getClRides().document(id).get();
+    }
 
 }

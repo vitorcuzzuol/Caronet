@@ -3,6 +3,7 @@ package br.uff.caronet.dao;
 import android.content.Context;
 import android.util.Log;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -160,6 +161,7 @@ public class Dao {
         return opRides;
     }
 
+
     public FirestoreRecyclerOptions<Ride> setOpMyRides (CollectionReference clRides, boolean isDriver) {
 
         if (isDriver){
@@ -226,6 +228,7 @@ public class Dao {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         Utils.showToast(context, "Added on Ride!");
+
                     }
                     else{
                         Utils.showToast(context, "error");

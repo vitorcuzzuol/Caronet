@@ -1,66 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.RideDetail"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".view.activities.RideDetail">
+
+    <ImageView
+        android:id="@+id/imProfile"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_gravity="center"
+        android:paddingBottom="5dp"
+        android:src="@drawable/ic_person" />
 
     <TextView
         android:id="@+id/tvDriverName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Motorista: Augusto Leandro" />
+
+
     <TextView
-        android:id="@+id/tvArrival"
+        android:id="@+id/tvDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Horário: QUA - 05/19 -10:40 " />
 
     <TextView
         android:id="@+id/tvDeparture"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Saindo: Flamengo" />
 
     <TextView
-        android:id="@+id/tvCampus"
+        android:id="@+id/tvArrival"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Chegando: Praia Vermelha" />
 
     <TextView
         android:id="@+id/tvSpots"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Lugares: 3" />
+
 
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Descrição: Indo pela praia" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btConfirmRide"
-            android:text="@string/confirm"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"/>
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp">
 
         <Button
             android:id="@+id/btCancelRide"
-            android:text="@string/cancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+
+            android:text="cancelar" />
+
+        <Button
+            android:id="@+id/btConfirmRide"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="50dp" />
+            android:layout_marginEnd="50dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+
+            android:text="confirmar" />
     </RelativeLayout>
-
-
-
-
 
 
 </LinearLayout>

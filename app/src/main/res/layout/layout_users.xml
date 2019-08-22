@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imProfile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_person" />
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/AppTheme.Subheader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="-2dp"
+            android:layout_marginBottom="4dp"
+            android:layout_toRightOf="@+id/imProfile"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Some Name" />
+
+        <Button
+            android:id="@+id/btRemoveUser"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_toRightOf="@+id/imProfile"
+            android:text="@string/remover" />
+
+        <Button
+            android:id="@+id/btConfirmUser"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvName"
+            android:layout_toRightOf="@+id/btRemoveUser"
+            android:text="@string/confirm" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

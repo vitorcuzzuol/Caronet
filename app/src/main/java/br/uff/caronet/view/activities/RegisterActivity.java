@@ -94,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (swDriver.isChecked()) user.setCar(new Car(
                 etCarPlate.getText().toString(),
                 etCarModel.getText().toString()));
+        user.setPhoto(Dao.get().getUserAuth().getPhotoUrl().toString());
 
         // Add user on DB
         userController.registerUser(user);

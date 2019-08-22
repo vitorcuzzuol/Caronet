@@ -1,30 +1,28 @@
-package br.uff.caronet.view.activities;
+package br.uff.caronet.view.dialog;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,16 +31,11 @@ import br.uff.caronet.controller.RidesController;
 import br.uff.caronet.controller.UserController;
 import br.uff.caronet.dao.Dao;
 import br.uff.caronet.model.Neighborhood;
-import br.uff.caronet.model.Ride;
-import br.uff.caronet.model.ViewUser;
 import br.uff.caronet.model.Zone;
-import br.uff.caronet.util.Utils;
 
-public class NewRideActivity extends AppCompatActivity implements
-        DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener,
-        AdapterView.OnItemSelectedListener,
-        View.OnClickListener {
+public class FilterDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
+
+    private static String TAG = "filterDialog";
 
     private RidesController ridesController = new RidesController();
     private UserController userController = new UserController();
@@ -50,24 +43,40 @@ public class NewRideActivity extends AppCompatActivity implements
     private Button btShareRide, btCancelRide, btDate;
     private List<String> zones = new ArrayList<>(), neighborhoods = new ArrayList<>(),
             cities = new ArrayList<>(), campi = new ArrayList<>();
-    private Integer[] spotsList;
     private String city, zone, neighborhood, campus;
-    private int spots;
     private ArrayAdapter<String> adapterZone, adapterNeighborhood, adapterCity, adapterCampus;
-    private ArrayAdapter<Integer> adapterSpots;
     private ToggleButton tgGoingToUff, tgLeavingUff;
     private boolean isGoingToUff = true;
-    private TextView tvDate;
-    private int day, month, hour, minute, year;
-    private Date date;
-    private EditText etDecrpition;
+
+    private View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_ride);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.AppTheme_Fullscreen);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.dialog_filter, container, false);
+
+
+        view.findViewById(R.id.btCancelFilter).setOnClickListener(v -> dismiss());
+        tgGoingToUff = view.findViewById(R.id.tgGoingtoUff);
 
         initVariables();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
 
         tgLeavingUff.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -114,71 +123,55 @@ public class NewRideActivity extends AppCompatActivity implements
         spCity.setOnItemSelectedListener(this);
         spZone.setOnItemSelectedListener(this);
         spNeighborhood.setOnItemSelectedListener(this);
-        spSpots.setOnItemSelectedListener(this);
 
-        // Buttons
-        btShareRide.setOnClickListener(this);
-        btCancelRide.setOnClickListener(this);
-        btDate.setOnClickListener(this);
+        view.findViewById(R.id.btApply).setOnClickListener(v -> applyDilter());
+    }
+
+    private void applyDilter() {
+
+
     }
 
     private void initVariables() {
 
-        etDecrpition = findViewById(R.id.etRideDesc);
-        tvDate = findViewById(R.id.tvDate);
-        tgGoingToUff = findViewById(R.id.tgGoingtoUff);
-        tgLeavingUff = findViewById(R.id.tgLeavingUff);
-        spZone = findViewById(R.id.spZone);
-        spNeighborhood = findViewById(R.id.spNeighborhood);
-        spCity = findViewById(R.id.spCity);
-        spCampus = findViewById(R.id.spCampus);
-        spSpots = findViewById(R.id.spSpots);
-        btShareRide = findViewById(R.id.btShareRide);
-        btCancelRide = findViewById(R.id.btCancelRide);
-        btDate = findViewById(R.id.btDate);
-
-        spotsList = new Integer[]{1, 2, 3, 4};
-        adapterSpots = new ArrayAdapter<>(
-                getApplication(),
-                R.layout.support_simple_spinner_dropdown_item,
-                spotsList
-        );
-        adapterSpots.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        tgGoingToUff = view.findViewById(R.id.tgGoingtoUff);
+        tgLeavingUff = view.findViewById(R.id.tgLeavingUff);
+        spZone = view.findViewById(R.id.spZone);
+        spNeighborhood = view.findViewById(R.id.spNeighborhood);
+        spCity = view.findViewById(R.id.spCity);
+        spCampus = view.findViewById(R.id.spCampus);
 
         adapterZone = new ArrayAdapter<>(
-                getApplicationContext(),
+                getActivity().getApplication(),
                 R.layout.support_simple_spinner_dropdown_item,
                 zones
         );
         adapterZone.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         adapterNeighborhood = new ArrayAdapter<>(
-                getApplication(),
+                getActivity().getApplication(),
                 R.layout.support_simple_spinner_dropdown_item,
                 neighborhoods
         );
         adapterNeighborhood.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         adapterCity = new ArrayAdapter<>(
-                getApplication(),
+                getActivity().getApplication(),
                 R.layout.support_simple_spinner_dropdown_item,
                 cities
         );
 
         adapterCampus = new ArrayAdapter<>(
-                getApplication(),
+                getActivity().getApplication(),
                 R.layout.support_simple_spinner_dropdown_item,
                 campi
         );
 
 
-
-        spSpots.setAdapter(adapterSpots);
         spZone.setAdapter(adapterZone);
         spNeighborhood.setAdapter(adapterNeighborhood);
         spCity.setAdapter(adapterCity);
         spCampus.setAdapter(adapterCampus);
-
     }
 
 
@@ -231,12 +224,6 @@ public class NewRideActivity extends AppCompatActivity implements
                             }
                         });
                 break;
-
-            case R.id.spSpots:
-                // Spots spinner
-                spots = ((int) parent.getSelectedItem());
-
-                break;
         }
 
     }
@@ -247,74 +234,8 @@ public class NewRideActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btShareRide:
-                if (isValid()) {
-                    Neighborhood neighborhoodObj = new Neighborhood(neighborhood, zone, city);
-                    ViewUser driver = new ViewUser(userController.getUser().getId(), userController.getUser().getName());
+    public void onAttach(@NonNull Context context) {
 
-                    Ride ride = new Ride(driver, date, isGoingToUff, campus, neighborhoodObj, spots);
-                    ride.setDescription(etDecrpition.getText().toString());
-
-                    ride.setCar(userController.getUserCar());
-
-                    ridesController.addRide(ride);
-
-                    Intent intent = new Intent(this, RidesActivity.class);
-                    startActivity(intent);
-                }
-                break;
-
-            case R.id.btCancelRide:
-                onBackPressed();
-                break;
-
-            case R.id.btDate:
-                int day = Calendar.getInstance().get(Calendar.DATE);
-                int month = Calendar.getInstance().get(Calendar.MONDAY);
-                int year = Calendar.getInstance().get(Calendar.YEAR);
-                new DatePickerDialog(this, this, year, month, day).show();
-                break;
-        }
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        this.day = dayOfMonth;
-        this.month = month + 1;
-        this.year = year;
-
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        int minutes = Calendar.getInstance().get(Calendar.MINUTE);
-        new TimePickerDialog(this, this, hour, minutes, true).show();
-
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        this.hour = hourOfDay;
-        this.minute = minute;
-        this.date = Utils.intToDate(this.year, this.month, this.day, this.hour, this.minute);
-        tvDate.setText(Utils.dateToString(this.month, this.day, this.hour, this.minute));
-    }
-
-    private boolean isValid() {
-
-        if (tvDate.getText().toString().equals("")) {
-            Utils.showToast(this, getString(R.string.chose_data));
-            return false;
-        }
-        else if (Utils.diffInMinutes(date) < 10) {
-                Utils.showToast(this, getString(R.string.chose_valid_date));
-                return false;
-        }
-
-        if (etDecrpition.getText().toString().equals("")) {
-            Utils.showToast(this, getString(R.string.miss_desc));
-            return false;
-        }
-
-        return true;
+        super.onAttach(context);
     }
 }

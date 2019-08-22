@@ -33,6 +33,12 @@ public class Utils{
 
     public static Long diffInMinutes(Date date) {
 
-        return TimeUnit.MILLISECONDS.toMinutes(date.getTime() - Calendar.getInstance().getTime().getTime());
+        return TimeUnit.MILLISECONDS.toMinutes(
+                date.getTime() - Calendar.getInstance().getTime().getTime());
+    }
+
+    public static String dateToStringStr (Date date) {
+
+        return  new SimpleDateFormat("MM/dd - HH:mm").format(date);
     }
 }

@@ -135,4 +135,46 @@
     <string name="set_date">Data</string>
     <string name="set_time">Set Time</string>
     <string name="confirm_ride">Confirma corona?</string>
+    <string name="chose_data">Escolha uma data!</string>
+    <string name="chose_valid_date">Escolha uma data válida</string>
+    <string name="miss_desc">Falta descrição!</string>
+    <string name="apply">Aplicar</string>
+    <string name="not_possible">Não foi possível recuperar os dados</string>
+    <string name="get_ride">Pegar carona</string>
+    <string name="remover">Remover</string>
+    <string name="terms">
+Esses termos e condições se executam sobre o uso da aplicativo do sistema oferecido pelo CARONET, disponibilizado na loja virtual Google Play totalmente gratuito para download, sendo de domínio de propriedade da UNIVERSIDADE FEDERAL FLUMINENSE (UFF) como trabalho de conclusão final de curso dos respectivos responsáveis, Patrick Ribeiro de Resende e Vitor Marreiro Cuzzuol, formandos do curso de Sistemas de Informação com a criação do aplicativo de caráter sem fins lucrativos e totalmente colaborativo com a sociedade, direcionado para alunos, professores e servidores da UFF. Qualquer usuário do aplicativo que acesse ou utilize as funcionalidades e soluções do CARONET, deverá aceitar os Termos e Condições de Uso do sistema CARONET, e todas as demais políticas e princípios que o regem.
+
+O usuário deverá ler e certificar-se de haver entendido e aceitar todas as condições estabelecidas nos Termos e Condições de Uso do sistema CARONET, e assim como nos demais documentos incorporados aos mesmos por referência, antes de seu cadastro como usuário do sistema CARONET.
+
+1. Cadastro
+
+As ferramentas do CARONET estão disponíveis apenas para as pessoas que estejam ativamente vinculadas com a UNIVERSIDADE FEDERAL FLUMINENSE (UFF), enquanto aluno, servidor técnico-administrativo ou professor. Não podem utilizá-los, assim, pessoas que não gozem dessa capacidade. Pessoas sem carteira de habilitação ou com a mesma fora do prazo de validade não podem oferecer carona.
+
+2. Busca e Oferta de Carona
+
+2.1.	Avisamos aos usuários que o CARONET não checa absolutamente nada referente a pendências e ou restrições civis e ou criminais de usuários ou indivíduos acessando suas soluções. Os usuários devem, portanto, ter cautela ao decidirem com quem dividir suas viagens. A única checagem realizada é a garantia do vínculo institucional ativo com a UFF, por meio de validação com o nosso sistema que verifica os e-mail terminados com o domínio @id.uff.br.
+2.2.	O CARONET não se responsabiliza por qualquer consequência pessoal ou financeira, resultantes do uso do sistema. Simplesmente disponibilizamos um método para os usuários compartilharem suas viagens, buscar caronas e contatar pessoas.
+2.3.	As soluções em buscar e oferecer caronas são projetadas para acomodar diversos interesses dos usuários. Como qualquer outra comunidade, os grupos participantes devem ter um comportamento apropriado. As soluções para buscar e oferecer caronas não podem ser utilizadas para postar, divulgar ou transmitir nenhuma conduta ilegal, prejudicial, ameaçador, insultante, atormentadora, caluniosa, ou de qualquer maneira questionável, incluindo qualquer material que possa encorajar condutas questionáveis contra o CARONET e seus interesses. Constitui um crime, exploração de crianças, violação dos direitos de outros usuários ou qualquer ato que viole as leis municipais, estaduais, federais e internacionais. O CARONET se reserva o direito, a seu exclusivo critério, de remover qualquer grupo ou usuário que infringir essas normas de procedimento.
+2.4.	O CARONET não tem nenhuma obrigação de monitorar ou revisar mensagens, envios e transmissões de mensagens entre os usuários.
+2.5.	Ao participar ou aceitar a participação de um usuário na carona, os envolvidos na carona consentem em compartilhar os seguintes dados do perfil: Nome completo, telefone, e detalhes do carro, caso possua (modelo, placa e cor).
+
+	3. Responsabilidades
+
+O CARONET não é o responsável pelas caronas oferecidas. Tampouco intervém na carona que se inicia no aplicativo.
+O CARONET não se responsabiliza pela existência, quantidade, qualidade, estado, integridade ou legitimidade das caronas oferecidas pelos usuários, ou pela veracidade dos Dados Pessoais por eles inseridos em seus cadastros.
+O CARONET não outorga garantia por vícios ocultos ou aparentes nas negociações entre os usuários. Cada usuário conhece e aceita ser o único responsável pelos trajetos que anuncia ou pelas caronas que realiza.
+	O  CARONET não se responsabiliza pelo estado de conservação dia veículos.
+	O CARONET não se compromete com manutenções corretivas, preventivas ou evolutivas do produto.
+
+O CARONET não será responsável pelo efetivo cumprimento das obrigações assumidas pelos usuários. O usuário reconhece e aceita que ao realizar negociações com outros usuários ou terceiros faz por sua conta e risco.
+Em nenhum caso o CARONET será responsável por qualquer outro dano e/ou prejuízo que o usuário possa sofrer devido às negociações realizadas ou não realizadas através do O CARONET decorrentes da conduta de outros usuários.
+O CARONET recomenda que toda carona seja realizada com cautela e bom senso. O usuário deverá sopesar os riscos da negociação, levando em consideração que pode estar, eventualmente, lidando com menores de idade ou pessoas valendo-se de falsas identidades. O CARONET não será responsável pelas transações entre os usuários, mesmo as firmadas com base na confiança depositada no sistema ou nas soluções prestadas pelo CARONET. Nos casos em que um ou mais usuários ou algum terceiro inicie qualquer tipo de reclamação ou ação legal contra outro ou outros usuários, todos e cada um dos usuários envolvidos nas reclamações ou ações eximem de toda responsabilidade o CARONET e a seus organizadores.
+
+4. Política de privacidade
+
+Com estas Políticas, o CARONET quer demonstrar que a privacidade da informação dos usuários é muito importante para ele e por isso tomar-se precauções e cautelas para resguardá-la utilizando os mecanismos de segurança informática.
+
+4.1 Uso da informação pelo CARONET. Toda informação ou dado pessoal prestado pelo usuário do CARONET é armazenada em servidores ou meios magnéticos. O CARONET tomará todas as medidas possíveis para manter a confidencialidade e a segurança descritas nesta cláusula, porém não responderá por prejuízo que possa ser derivado da violação dessas medidas por parte de terceiros que utilizem as redes públicas ou a internet, subvertendo os sistemas de segurança para acessar as informações de usuários. O CARONET coleta e armazena automaticamente algumas informações sobre a atividade dos usuários no aplicativo. A conta da Google cadastrada: nome, foto e-mail; se tiver carro: cor, placa e modelo;
+</string>
 </resources>

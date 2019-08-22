@@ -29,6 +29,8 @@ import br.uff.caronet.model.User;
 
 public class GoogleSignInActivity extends BaseActivity implements View.OnClickListener {
 
+    //TODO  Motorista remover passageiro/ Passageiro cancelar corrida
+
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
@@ -126,6 +128,7 @@ public class GoogleSignInActivity extends BaseActivity implements View.OnClickLi
 
                         FirebaseUser user = mAuth.getCurrentUser();
                         checkRegistered(user);
+
 
                         updateUI(user);
                     } else {

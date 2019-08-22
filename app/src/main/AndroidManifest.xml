@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.activities.DetailAsPsgerActivity"></activity>
+        <activity android:name=".view.activities.DetailAsDriverActivity" />
         <activity android:name=".view.activities.GoogleSignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,9 +33,7 @@
         <activity android:name=".view.activities.ChatActivity" />
         <activity android:name=".view.activities.LoginActivity" />
         <activity android:name=".view.activities.RegisterActivity" />
-        <activity android:name=".view.activities.MainActivity">
-
-        </activity>
+        <activity android:name=".view.activities.MainActivity" />
     </application>
 
 </manifest>

@@ -8,4 +8,6 @@ public interface OnItemClickListener {
 
     void onItemClick (View view, Ride ride, String id);
 
+    void onButtonClick(String id);
+
 }
